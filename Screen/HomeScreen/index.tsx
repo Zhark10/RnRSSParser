@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { AsyncStorage, Text, Button } from 'react-native';
 import styled from 'styled-components/native';
-import FABExample from '../../ui-components/Button';
 import Wrapper from '../wrapper';
+import RSSModal from '../../ui-components/Modal';
+import ButtonToAdd from '../../ui-components/ButtonToAdd';
 
 const Container = styled.View`
   flex: 1;
@@ -13,13 +14,22 @@ const Container = styled.View`
 interface IHomeScreenProps {
   navigation: any;
 }
-interface IHomeScreenState { }
+interface IHomeScreenState {
+  showRSSModal: boolean;
+}
 
 export default class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
+
+  state: IHomeScreenState = {
+    showRSSModal: false
+  }
+
   render() {
+    const {showRSSModal} = this.state;
     return (
       <Wrapper>
-        <FABExample />
+        <ButtonToAdd onClick={() => this.setState({ showRSSModal: true })} />
+        <RSSModal modalVisible={showRSSModal} />
       </Wrapper>
     );
   }

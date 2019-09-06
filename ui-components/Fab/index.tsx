@@ -28,15 +28,11 @@ export default class FABExample extends Component<IFABExampleProps,IFABExampleSt
             position="bottomRight"
             onPress={() => this.setState({ active: !this.state.active })}>
             <Icon name="share" />
-            <Button style={{ backgroundColor: '#34A34F' }}>
-              <Icon name="logo-whatsapp" />
-            </Button>
-            <Button style={{ backgroundColor: '#3B5998' }}>
-              <Icon name="logo-facebook" />
-            </Button>
+
             <Button disabled style={{ backgroundColor: '#DD5144' }}>
-              <Icon name="mail" />
+              <Icon name="add" />
             </Button>
+
           </Fab>
         </View>
 
