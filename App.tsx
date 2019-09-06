@@ -1,19 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import HomeScreen from './Screen/HomeScreen';
+import ProfileScreen from './Screen/ProfileScreen';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Hello</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const MainNavigator = createSwitchNavigator({
+  Home: { screen: HomeScreen },
+  Profile: { screen: ProfileScreen },
 });
+
+const App = createAppContainer(MainNavigator);
+
+export default App;
