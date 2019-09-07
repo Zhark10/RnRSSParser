@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AsyncStorage, Text, Button } from 'react-native';
 import styled from 'styled-components/native';
-import Wrapper from '../wrapper';
+import Wrapper from '../ScreenWrapper';
 import RSSModal from '../../ui-components/Modal';
 import ButtonToAdd from '../../ui-components/ButtonToAdd';
 
@@ -29,7 +29,7 @@ export default class HomeScreen extends React.Component<IHomeScreenProps, IHomeS
     return (
       <Wrapper>
         <ButtonToAdd onClick={() => this.setState({ showRSSModal: true })} />
-        <RSSModal modalVisible={showRSSModal} />
+        <RSSModal modalVisible={showRSSModal} onHide={() => this.setState({ showRSSModal: false })}/>
       </Wrapper>
     );
   }
