@@ -4,18 +4,6 @@ import styled from 'styled-components/native';
 import Modal from "react-native-modal";
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 
-const MainModal = styled.View`
-  margin: 8px;
-  padding: 16px;
- `;
-
-const ButtonGroup = styled.View`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap-nowrap;
-  max-width: 80%;
- `;
-
 interface IRSSModalProps {
     modalVisible: boolean;
     onHide: () => void;
@@ -28,27 +16,25 @@ class RSSModal extends Component<IRSSModalProps> {
         return (
             <View style={{ marginTop: 22 }}>
                 <Modal isVisible={modalVisible}>
-                    <MainModal>
-                        <Container>
-                            <Header />
-                            <Content>
-                                <Form style={{ padding: 8 }}>
-                                    <Item style={{ width: "80%" }} floatingLabel>
-                                        <Label>RSS url</Label>
-                                        <Input />
-                                    </Item>
-                                </Form>
-                                <ButtonGroup>
-                                    <Button transparent primary onPress={onHide}>
+                    <Container style={{ maxHeight: 250 }}>
+                        <Header />
+                        <Content >
+                            <Form style={{ padding: 8 }}>
+                                <Item style={{ width: "80%" }} floatingLabel>
+                                    <Label>RSS url</Label>
+                                    <Input />
+                                </Item>
+                                <View style={{ display: "flex", flexWrap: "nowrap", marginTop: 16 }}>
+                                    <Button onPress={onHide} transparent>
                                         <Text>Отмена</Text>
                                     </Button>
                                     <Button onPress={addRSS}>
                                         <Text>Добавить</Text>
                                     </Button>
-                                </ButtonGroup>
-                            </Content>
-                        </Container>
-                    </MainModal>
+                                </View>
+                            </Form>
+                        </Content>
+                    </Container>
                 </Modal>
             </View>
         );
