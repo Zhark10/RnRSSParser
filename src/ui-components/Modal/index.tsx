@@ -1,34 +1,53 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { View } from 'react-native';
-import styled from 'styled-components/native';
 import Modal from "react-native-modal";
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Title, Body, Right } from 'native-base';
 
 interface IRSSModalProps {
     modalVisible: boolean;
     onHide: () => void;
-    addRSS: () => void;
+    addRSS: (rssUrl: string) => void;
 }
 
-class RSSModal extends Component<IRSSModalProps> {
+interface IRSSModalState {
+    inputText: string;
+}
+
+class RSSModal extends Component<IRSSModalProps, IRSSModalState> {
+    private inputField: any = createRef();
+
+    state: IRSSModalState = {
+        inputText: "https://habrahabr.ru/rss/interesting/"
+    }
+
     render() {
         const { modalVisible, onHide, addRSS } = this.props;
+        const { inputText } = this.state;
+        const { handleChange } = this;
         return (
             <View style={{ marginTop: 22 }}>
                 <Modal isVisible={modalVisible}>
                     <Container style={{ maxHeight: 250 }}>
-                        <Header />
+                        <Header style={{paddingLeft: 8}}>
+                            <Body>
+                                <Title>Добавить адрес</Title>
+                            </Body>
+                        </Header>
                         <Content >
                             <Form style={{ padding: 8 }}>
                                 <Item style={{ width: "80%" }} floatingLabel>
                                     <Label>RSS url</Label>
-                                    <Input />
+                                    <Input
+                                        onChange={handleChange}
+                                        getRef={ref => this.inputField = ref}
+                                        onSubmitEditing={this.handleChange} 
+                                        value={inputText} />
                                 </Item>
                                 <View style={{ display: "flex", flexWrap: "nowrap", marginTop: 16 }}>
                                     <Button onPress={onHide} transparent>
                                         <Text>Отмена</Text>
                                     </Button>
-                                    <Button onPress={addRSS}>
+                                    <Button onPress={() => addRSS(inputText)}>
                                         <Text>Добавить</Text>
                                     </Button>
                                 </View>
@@ -38,6 +57,10 @@ class RSSModal extends Component<IRSSModalProps> {
                 </Modal>
             </View>
         );
+    }
+
+    private handleChange = (event: any) => {
+        this.setState({ inputText: event.target.value });
     }
 }
 

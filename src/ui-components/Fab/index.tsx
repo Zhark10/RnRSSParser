@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Header, View, Button, Icon, Fab } from 'native-base';
 
-interface IFABExampleProps {
+interface IFabButtonProps {
 
 }
 
-interface IFABExampleState {
+interface IFabButtonState {
     active: boolean
 }
 
-export default class FABExample extends Component<IFABExampleProps,IFABExampleState> {
+export default class FabButton extends Component<IFabButtonProps,IFabButtonState> {
   constructor(props) {
     super(props)
     this.state = {

@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { AsyncStorage, Text, Button } from 'react-native';
-import styled from 'styled-components/native';
+import { AsyncStorage, Text } from 'react-native';
 import Wrapper from '../ScreenWrapper';
 import RSSModal from '../../ui-components/Modal';
 import ButtonToAdd from '../../ui-components/ButtonToAdd';
-import * as rssParser from 'react-native-rss-parser';
+import * as rssParser from "react-native-rss-parser";
 
 interface IHomeScreenProps {
   navigation: any;
@@ -33,15 +32,18 @@ export default class HomeScreen extends React.Component<IHomeScreenProps, IHomeS
     );
   }
 
-  private addRSS = () => {
-    return fetch('http://www.nasa.gov/rss/dyn/breaking_news.rss')
-    .then((response) => response.text())
-    .then((responseData) => rssParser.parse(responseData))
-    .then((rss) => {
-      console.log(rss.title);
-      console.log(rss.items.length);
-      this.setState({newsTitle: rss.title})
-    });
+  private addRSS = (rssUrl: string) => {
+    this.setState({ showRSSModal: false });
+    try {
+      fetch(rssUrl)
+        .then((response) => response.text())
+        .then((responseData) => rssParser.parse(responseData))
+        .then((rss) => {
+          this.setState({ newsTitle: rss.title })
+        });
+    } catch (e) {
+      alert("Некорректный адрес");
+    }
   }
 
   _login = () => {
