@@ -4,38 +4,44 @@ import styled from 'styled-components/native';
 import Wrapper from '../ScreenWrapper';
 import RSSModal from '../../ui-components/Modal';
 import ButtonToAdd from '../../ui-components/ButtonToAdd';
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
+import * as rssParser from 'react-native-rss-parser';
 
 interface IHomeScreenProps {
   navigation: any;
 }
 interface IHomeScreenState {
   showRSSModal: boolean;
+  newsTitle: string;
 }
 
 export default class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
 
   state: IHomeScreenState = {
-    showRSSModal: false
+    showRSSModal: false,
+    newsTitle: ""
   }
 
   render() {
-    const {showRSSModal} = this.state;
+    const { showRSSModal, newsTitle } = this.state;
+    const { addRSS } = this;
     return (
       <Wrapper>
+        <Text>{newsTitle}</Text>
         <ButtonToAdd onClick={() => this.setState({ showRSSModal: true })} />
-        <RSSModal modalVisible={showRSSModal} onHide={() => this.setState({ showRSSModal: false })}/>
+        <RSSModal modalVisible={showRSSModal} onHide={() => this.setState({ showRSSModal: false })} addRSS={addRSS} />
       </Wrapper>
     );
   }
 
   private addRSS = () => {
-
+    return fetch('http://www.nasa.gov/rss/dyn/breaking_news.rss')
+    .then((response) => response.text())
+    .then((responseData) => rssParser.parse(responseData))
+    .then((rss) => {
+      console.log(rss.title);
+      console.log(rss.items.length);
+      this.setState({newsTitle: rss.title})
+    });
   }
 
   _login = () => {
