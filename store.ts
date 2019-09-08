@@ -1,13 +1,29 @@
+import { AsyncStorage } from "react-native";
 import { createStore, applyMiddleware, compose } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
 import rootReducer from "./redux/rootReducer";
+import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
 import promise from "redux-promise";
-import { createLogger } from "redux-logger";
 
-export const configureStore = (initialState: any = undefined) => {
-  const logger = createLogger();
-  const middleWares = compose(applyMiddleware(thunk, promise, logger))
-
-  const store = createStore(rootReducer, initialState, middleWares);
-  return store;
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage,
+  whitelist: [
+    "rssReducer",
+  ],
+  blacklist: [],
 };
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const logger = createLogger();
+const middleWares = compose(applyMiddleware(thunk, promise, logger))
+
+const store = createStore(
+  persistedReducer,
+  middleWares,
+);
+
+let persistor = persistStore(store);
+
+export { store, persistor };

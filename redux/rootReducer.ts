@@ -1,12 +1,15 @@
 import { rssReducer, IRSSNewsState } from "./rss/reducer";
-import { Action } from "../types/action";
+import { combineReducers } from "redux";
 
 export interface Reducers {
-    rss: IRSSNewsState;
+    rssReducer: IRSSNewsState;
 }
 
-const rootReducer = (state: any = {}, action: Action<any>) => ({
-    rss: rssReducer(state.source, action)
+const rootReducer = combineReducers({
+    rssReducer
 });
 
-export default rootReducer;
+export default rootReducer
+
+
+

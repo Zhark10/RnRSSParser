@@ -61,5 +61,5 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
   };
 }
 
-const mapStateToProps = ({ rss }: Reducers): IHomeScreenProps => ({ source: rss && rss.source });
+const mapStateToProps = ({ rssReducer }: Reducers): IHomeScreenProps => ({ source: rssReducer && rssReducer.source });
 export default connect(mapStateToProps)(HomeScreen);
