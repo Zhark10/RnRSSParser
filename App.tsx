@@ -4,7 +4,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from "./store";
 import { View } from "native-base";
 import { ActivityIndicator } from "react-native";
-import RootComponent from "./src/RootComponent";
+import RootComponent from "./RootComponent";
 
 class App extends Component {
   render() {

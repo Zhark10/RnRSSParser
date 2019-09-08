@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 import { Reducers } from '../../../redux/rootReducer';
 import { saveSource } from '../../../redux/rss/action';
 import { List, ListItem, Left, Right, Icon, Text } from 'native-base';
+import RSSItem from '../../ui-components/RSSItem';
 
 interface IHomeScreenProps {
   navigation?: any;
-  source?: string[];
+  source?: any[];
   dispatch?: Function;
 }
 interface IHomeScreenState {
@@ -31,15 +32,15 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
       <Wrapper>
         <List>
           {
-            source && source.length ? source.map((elem: string, key: number) => (
-              <ListItem key={key} noIndent style={{ backgroundColor: "#cde1f9" }}>
-                <Left>
-                  <Text>{elem}</Text>
-                </Left>
-                <Right>
-                  <Icon name="arrow-forward" />
-                </Right>
-              </ListItem>
+            source && source.length ? source.map((elem: any, key: number) => (
+              <RSSItem
+                key={key}
+                title={elem.title}
+                imageUrl={elem.imageUrl}
+                author={elem.author}
+                description={elem.description}
+                onClick={()=>console.log("sgfd")}
+              />
             )) : undefined
           }
         </List>

@@ -940,7 +940,27 @@
     react-native-safe-area-view "^0.14.1"
     react-native-screens "^1.0.0 || ^1.0.0-alpha"
 
-"@types/fbemitter@^2.0.32":
+"@types/expo@^32.0.13":
+  version "32.0.13"
+  resolved "https://registry.yarnpkg.com/@types/expo/-/expo-32.0.13.tgz#c43c9c0ada5e62a466ea427cc922c495345f55a7"
+  integrity sha512-kKU0zpkiyGGB4+A26vT9QmWbQ8/ccu9ui8ek7gDsz8FAk8atAvHQq9WaZpARSNqH6jTn+Ww2tKUo3Mw/cutoQQ==
+  dependencies:
+    "@types/fbemitter" "*"
+    "@types/react" "*"
+    "@types/react-native" "*"
+    react-native-maps "*"
+    react-native-svg "*"
+
+"@types/expo__vector-icons@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@types/expo__vector-icons/-/expo__vector-icons-9.0.1.tgz#46a0a9701cb69e632a05b87aafa7b0f537919896"
+  integrity sha512-xcdtdQSojtUO0mSuVDCP01cyqAXhZCIMGN1jXuqfA6DbOIg5cIcIBLIC5vhiGP0vR5gdviSyIHgPf4NR2d3wOg==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+    "@types/react-native-vector-icons" "*"
+
+"@types/fbemitter@*", "@types/fbemitter@^2.0.32":
   version "2.0.32"
   resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
   integrity sha1-jtIE2g9U6cjq7DGx7skeJRMtCCw=
@@ -979,6 +999,14 @@
   version "6.5.3"
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.5.3.tgz#1c3b71b091eaeaf5924538006b7f70603ce63d38"
   integrity sha512-Jugo5V/1bS0fRhy2z8+cUAHEyWOATaz4rbyLVvcFs7+dXp5HfwpEwzF1Q11bB10ApUqHf+yTauxI0UXQDwGrbA==
+
+"@types/react-native-vector-icons@*":
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.1.tgz#d0862f3eb97bbe5720ab604f2f10ee07dacb31ef"
+  integrity sha512-2C9jyyJKEjzX0C4nP+9rNNjEhutWwalkRdaSTEYtNjUkkkTk68WGG2hgjrcBjdm4Gn1Vi9OgUd+FR8GNmCyp+A==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
 
 "@types/react-native@*":
   version "0.60.11"
@@ -4604,6 +4632,11 @@ react-native-keyboard-aware-scroll-view@0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
+react-native-maps@*:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.25.0.tgz#81bc51eb50e33811a9e1c345cc48869413ead67d"
+  integrity sha512-PFJuW1pt+HnnnN0m0OGk29RSvICFVkK/DScX6cUk0SuCSN2DAHx0y6y57lZyYXcYqU4J4usNpfxgp/ccjASDiw==
+
 react-native-modal@^11.3.1:
   version "11.3.1"
   resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.3.1.tgz#9f67728b36fdc299f97d3da1d131190a0337b89b"
@@ -4632,6 +4665,11 @@ react-native-safe-area-view@^0.14.1:
   integrity sha512-tOxHGQUN83MTmQB4ghoQkibqOdGiX4JQEmeyEv96MKWO/x8T2PJv84ECUos9hD3blPRQwVwSpAid1PPPhrVEaw==
   dependencies:
     debounce "^1.2.0"
+
+react-native-svg@*:
+  version "9.8.5"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.8.5.tgz#ccddf364154fa496747cc22b22eed92ff07cd7d7"
+  integrity sha512-NHdTmkxfKySWqqZgNraZjI+75OvaQvYCcVWv+EIn6stoR14GbuZ1VOLXAzR1n/GuOzzdvw5oyuhpu4x6jYh7CA==
 
 react-native-vector-icons@^6.6.0:
   version "6.6.0"

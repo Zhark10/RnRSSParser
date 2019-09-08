@@ -2,21 +2,25 @@ import React, { Component } from 'react';
 import { ListItem, Thumbnail, Left, Right, Body, Text } from 'native-base';
 
 interface IRSSItemProps {
+    title: string;
+    imageUrl: string;
+    author: string;
+    description: string;
 
     onClick: () => void;
 }
 
-const RSSItem: React.FC<IRSSItemProps> = ({ onClick }) => (
-    <ListItem avatar>
+const RSSItem: React.FC<IRSSItemProps> = ({ onClick, title, imageUrl, description, author }) => (
+    <ListItem onPress={onClick} avatar>
         <Left>
-            <Thumbnail source={{ uri: 'Image URL' }} />
+            <Thumbnail source={{ uri: imageUrl }} />
         </Left>
         <Body>
-            <Text>Kumar Pratik</Text>
-            <Text note>Doing what you like will always keep you happy . .</Text>
+            <Text>{title}</Text>
+            <Text note>{description}</Text>
         </Body>
         <Right>
-            <Text note>3:43 pm</Text>
+            <Text note>{author}</Text>
         </Right>
     </ListItem>
 );
