@@ -1,8 +1,14 @@
 import { SAVE_RSS_NEWS } from "../actions";
 import { Action } from "../../types/action";
 
+interface RSSResponse {
+    title: string;
+    imageUrl: string;
+    author: string;
+    description: string;
+}
 export interface IRSSNewsState {
-    source: string[];
+    source: any[];
 }
 
 const initialState: IRSSNewsState = {
@@ -22,9 +28,25 @@ export function rssReducer(state: IRSSNewsState = initialState, action: Action<a
             };
         case SAVE_RSS_NEWS.SUCCESS:
             return {
-                source: [...state.source, payload],
+                source: [...state.source, RSSCorrect(payload)],
             };
         default:
             return state;
     }
+}
+
+const RSSCorrect = (payload: any) => {
+    const RSSFormatted: RSSResponse = {
+            title: "",
+            imageUrl: "",
+            author: "",
+            description: ""
+    };
+
+    if ("title" in payload) RSSFormatted.author = payload.title;
+    if ("image" in payload) RSSFormatted.author = payload.image.url;
+    if ("author" in payload) RSSFormatted.author = payload.author;
+    if ("description" in payload) RSSFormatted.author = payload.description;
+
+    return RSSFormatted;
 }

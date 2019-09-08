@@ -15,7 +15,7 @@ export function saveSource(rssUrl: string) {
                 .then((response) => response.text())
                 .then((responseData) => rssParser.parse(responseData))
                 .then((rss) => {
-                    dispatch(saveRSSNewsSuccess(rss.title));
+                    dispatch(saveRSSNewsSuccess(rss));
                 });
         } catch (e) {
             dispatch(saveRSSNewsFailure());
