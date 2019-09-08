@@ -1,31 +1,48 @@
 import * as React from 'react';
-import { AsyncStorage, Text } from 'react-native';
+import { AsyncStorage, View } from 'react-native';
 import Wrapper from '../ScreenWrapper';
 import RSSModal from '../../ui-components/Modal';
 import ButtonToAdd from '../../ui-components/ButtonToAdd';
-import * as rssParser from "react-native-rss-parser";
+import { connect } from 'react-redux';
+import { Reducers } from '../../../redux/rootReducer';
+import { saveSource } from '../../../redux/rss/action';
+import { List, ListItem, Left, Right, Icon, Text } from 'native-base';
 
 interface IHomeScreenProps {
-  navigation: any;
+  navigation?: any;
+  source?: string[];
+  dispatch?: Function;
 }
 interface IHomeScreenState {
   showRSSModal: boolean;
-  newsTitle: string;
 }
 
-export default class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
+class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
 
   state: IHomeScreenState = {
     showRSSModal: false,
-    newsTitle: ""
   }
 
   render() {
-    const { showRSSModal, newsTitle } = this.state;
+    const { showRSSModal } = this.state;
+    const { source } = this.props;
     const { addRSS } = this;
     return (
       <Wrapper>
-        <Text>{newsTitle}</Text>
+        <List>
+          {
+            source && source.length ? source.map((elem: string, key: number) => (
+              <ListItem key={key} noIndent style={{ backgroundColor: "#cde1f9" }}>
+                <Left>
+                  <Text>{elem}</Text>
+                </Left>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right>
+              </ListItem>
+            )) : undefined
+          }
+        </List>
         <ButtonToAdd onClick={() => this.setState({ showRSSModal: true })} />
         <RSSModal modalVisible={showRSSModal} onHide={() => this.setState({ showRSSModal: false })} addRSS={addRSS} />
       </Wrapper>
@@ -33,17 +50,9 @@ export default class HomeScreen extends React.Component<IHomeScreenProps, IHomeS
   }
 
   private addRSS = (rssUrl: string) => {
+    const { dispatch } = this.props;
     this.setState({ showRSSModal: false });
-    try {
-      fetch(rssUrl)
-        .then((response) => response.text())
-        .then((responseData) => rssParser.parse(responseData))
-        .then((rss) => {
-          this.setState({ newsTitle: rss.title })
-        });
-    } catch (e) {
-      alert("Некорректный адрес");
-    }
+    dispatch(saveSource(rssUrl));
   }
 
   _login = () => {
@@ -51,3 +60,6 @@ export default class HomeScreen extends React.Component<IHomeScreenProps, IHomeS
     this.props.navigation.navigate('Profile');
   };
 }
+
+const mapStateToProps = ({ rss }: Reducers): IHomeScreenProps => ({ source: rss && rss.source });
+export default connect(mapStateToProps)(HomeScreen);
