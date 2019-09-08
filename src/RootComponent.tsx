@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { Root } from "native-base";
 import * as Font from "expo-font";
-import AppNavigator from "./src/Screen/Navigation";
+import AppNavigator from "./Screen/Navigation";
 
-interface IAppProps { }
-interface IAppState {
+interface IRootComponentProps { }
+interface IRootComponentState {
   isLoaded: boolean;
 }
 
-class Main extends Component<IAppProps, IAppState> {
+class RootComponent extends Component<IRootComponentProps, IRootComponentState> {
 
-  state: IAppState = { isLoaded: false };
+  state: IRootComponentState = { isLoaded: false };
 
   async componentWillMount() {
     await Font.loadAsync({
@@ -30,4 +30,4 @@ class Main extends Component<IAppProps, IAppState> {
   }
 }
 
-export default Main;
+export default RootComponent;

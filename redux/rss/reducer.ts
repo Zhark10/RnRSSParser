@@ -24,5 +24,7 @@ export function rssReducer(state: IRSSNewsState = initialState, action: Action<a
             return {
                 source: [...state.source, payload],
             };
+        default:
+            return state;
     }
 }

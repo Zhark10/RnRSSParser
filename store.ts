@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import rootReducer from "./redux/rootReducer";
 import { createLogger } from "redux-logger";
-import thunk from "redux-thunk";
+import reduxThunk  from "redux-thunk";
 import promise from "redux-promise";
 
 const persistConfig = {
@@ -14,10 +14,11 @@ const persistConfig = {
   ],
   blacklist: [],
 };
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const logger = createLogger();
-const middleWares = compose(applyMiddleware(thunk, promise, logger))
+const middleWares = compose(applyMiddleware(reduxThunk, promise, logger))
 
 const store = createStore(
   persistedReducer,

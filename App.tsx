@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { Provider } from 'react-redux'
-import Main from "./Main";
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from "./store";
+import { View } from "native-base";
+import { ActivityIndicator } from "react-native";
+import RootComponent from "./src/RootComponent";
 
 class App extends Component {
   render() {
+    const renderLoading: React.ReactNode = <View><ActivityIndicator size="large" /></View>;
     return (
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Main />
+        <PersistGate loading={renderLoading} persistor={persistor}>
+          <RootComponent />
         </PersistGate>
       </Provider >
     )
@@ -17,5 +20,3 @@ class App extends Component {
 }
 
 export default App;
-
-
