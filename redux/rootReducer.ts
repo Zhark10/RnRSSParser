@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
     rssReducer
 });
 
-export default rootReducer
+export default rootReducer;
 
 
 
