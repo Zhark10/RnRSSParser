@@ -5,14 +5,17 @@ import RSSModal from '../../ui-components/Modal';
 import ButtonToAdd from '../../ui-components/ButtonToAdd';
 import { connect } from 'react-redux';
 import { Reducers } from '../../../redux/rootReducer';
-import { saveSource } from '../../../redux/rss/action';
-import { List, ListItem, Left, Right, Icon, Text } from 'native-base';
+import { saveSource, deleteSource, loadDefaultRSSImage } from '../../../redux/rss/action';
 import RSSItem from '../../ui-components/RSSItem';
+import { AppLoading } from 'expo';
+import { RSSResponse } from '../../../redux/rss/reducer';
+import { List, Content } from 'native-base';
 
 interface IHomeScreenProps {
   navigation?: any;
-  source?: any[];
+  source?: RSSResponse[];
   dispatch?: Function;
+  isFetching: boolean;
 }
 interface IHomeScreenState {
   showRSSModal: boolean;
@@ -21,29 +24,39 @@ interface IHomeScreenState {
 class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
 
   state: IHomeScreenState = {
-    showRSSModal: false,
+    showRSSModal: false
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(loadDefaultRSSImage("https://cdn.onlinewebfonts.com/svg/thumbnails_60_229696.png"));
   }
 
   render() {
     const { showRSSModal } = this.state;
-    const { source } = this.props;
+    const { source, dispatch, isFetching } = this.props;
     const { addRSS } = this;
     return (
-      <Wrapper>
-        <List>
+      <Wrapper headerTitle="Новости" >
+        <Content>
+
           {
-            source && source.length ? source.map((elem: any, key: number) => (
+            isFetching && source && source.length ? source.map((elem: RSSResponse, key: number) => (
               <RSSItem
                 key={key}
+                id={elem.id}
                 title={elem.title}
                 imageUrl={elem.imageUrl}
-                author={elem.author}
+                link={elem.link}
                 description={elem.description}
-                onClick={()=>console.log("sgfd")}
+                items={elem.items}
+                onDelete={() => dispatch(deleteSource(elem.title))}
+                onClick={() => this.seeMore("more")}
               />
-            )) : undefined
+            )) : <AppLoading />
           }
-        </List>
+        </Content>
+
         <ButtonToAdd onClick={() => this.setState({ showRSSModal: true })} />
         <RSSModal modalVisible={showRSSModal} onHide={() => this.setState({ showRSSModal: false })} addRSS={addRSS} />
       </Wrapper>
@@ -51,16 +64,27 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
   }
 
   private addRSS = (rssUrl: string) => {
-    const { dispatch } = this.props;
+    const { dispatch, source } = this.props;
     this.setState({ showRSSModal: false });
-    dispatch(saveSource(rssUrl));
+    if (this.searchRSSinStore(source, rssUrl)) {
+      alert("Новость уже добавлена");
+    } else {
+      dispatch(saveSource(rssUrl));
+    }
   }
 
-  _login = () => {
-    AsyncStorage.setItem('userToken', 'add_token');
-    this.props.navigation.navigate('Profile');
+  private searchRSSinStore = (source: RSSResponse[], rssUrl: string) => {
+    return source.map((elem: RSSResponse) => elem.id).includes(rssUrl);
+  }
+
+
+  private seeMore = (data: string) => {
+    this.props.navigation.navigate("Profile", { data });
   };
 }
 
-const mapStateToProps = ({ rssReducer }: Reducers): IHomeScreenProps => ({ source: rssReducer && rssReducer.source });
+const mapStateToProps = ({ rssReducer }: Reducers): IHomeScreenProps => ({ 
+  source: rssReducer && rssReducer.source, 
+  isFetching: rssReducer && rssReducer.isFetching 
+});
 export default connect(mapStateToProps)(HomeScreen);

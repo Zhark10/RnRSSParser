@@ -1,30 +1,26 @@
 import * as React from 'react';
-import { AsyncStorage, Text, Button } from 'react-native';
-import styled from 'styled-components/native';
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
+import Wrapper from '../ScreenWrapper';
+import DetailedDescription from '../../ui-components/DetailedDescription';
 
 interface IProfileScreenProps {
   navigation: any;
+  data: string;
 }
-interface IProfileScreenState {}
+interface IProfileScreenState { }
 
 export default class ProfileScreen extends React.Component<IProfileScreenProps, IProfileScreenState> {
   render() {
+    const { navigation: {state} } = this.props;
     return (
-      <Container>
-        <Text>ProfileScreen</Text>
-        <Button title="to Profile" onPress={this._login} />
-      </Container>
+      <Wrapper headerTitle="Список новостей">
+        <DetailedDescription data={state.params.data} />
+      </Wrapper>
     );
   }
 
-  _login = () => {
-    AsyncStorage.setItem('userToken', 'add_token');
-    this.props.navigation.navigate('Home');
-  };
+  // private seeMore = (data: string) => {
+  //   this.props.navigation.navigate("Profile", data);
+  // };
+
+
 }

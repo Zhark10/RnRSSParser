@@ -1,18 +1,29 @@
-import { SAVE_RSS_NEWS } from "../actions";
+import { SAVE_RSS_NEWS, DELETE_RSS_NEWS, LOAD_DEFAULT_RSS_IMAGE } from "../actions";
 import { Action } from "../../types/action";
 
-interface RSSResponse {
+export interface RSSResponceItem {
+    title: string;
+    link: string;
+    description: string;
+    author: string;
+    guid: any
+}
+export interface RSSResponse {
+    id: string;
     title: string;
     imageUrl: string;
-    author: string;
+    link: string;
     description: string;
+    items: RSSResponceItem[]
 }
 export interface IRSSNewsState {
     source: any[];
+    isFetching: boolean;
 }
 
 const initialState: IRSSNewsState = {
     source: [],
+    isFetching: false
 };
 
 export function rssReducer(state: IRSSNewsState = initialState, action: Action<any>) {
@@ -21,32 +32,47 @@ export function rssReducer(state: IRSSNewsState = initialState, action: Action<a
         case SAVE_RSS_NEWS.REQUEST:
             return {
                 ...state,
+                isFetching: false
             };
-        case SAVE_RSS_NEWS.FAILURE:
+
+        case SAVE_RSS_NEWS.SUCCESS:
+            const { rssUrl, rss } = payload;
             return {
                 ...state,
+                source: [...state.source, RSSCorrect(rssUrl, rss)],
+                isFetching: true
             };
-        case SAVE_RSS_NEWS.SUCCESS:
+        case DELETE_RSS_NEWS.SUCCESS:
             return {
-                source: [...state.source, RSSCorrect(payload)],
+                ...state,
+                source: state.source.filter((rss: RSSResponse) => rss.title !== payload),
+                isFetching: true
+            };
+        case LOAD_DEFAULT_RSS_IMAGE:
+            return {
+                ...state,
+                isFetching: true
             };
         default:
             return state;
     }
 }
 
-const RSSCorrect = (payload: any) => {
+const RSSCorrect = (rssUrl: string, rss: any) => {
     const RSSFormatted: RSSResponse = {
-            title: "",
-            imageUrl: "",
-            author: "",
-            description: ""
+        title: "",
+        imageUrl: null,
+        link: "",
+        description: "",
+        items: [],
+        id: rssUrl
     };
 
-    if ("title" in payload) RSSFormatted.author = payload.title;
-    if ("image" in payload) RSSFormatted.author = payload.image.url;
-    if ("author" in payload) RSSFormatted.author = payload.author;
-    if ("description" in payload) RSSFormatted.author = payload.description;
+    if ("title" in rss) RSSFormatted.title = rss.title;
+    if ("image" in rss) RSSFormatted.imageUrl = rss.image.url;
+    if ("link" in rss) RSSFormatted.link = rss.link;
+    if ("description" in rss) RSSFormatted.description = rss.description;
+    if ("items" in rss) RSSFormatted.items = rss.items;
 
     return RSSFormatted;
 }
