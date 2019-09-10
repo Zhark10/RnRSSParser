@@ -1,5 +1,6 @@
-import { rssReducer, ISourcesState } from './modules/rss/reducer';
+import { rssReducer } from '../modules/rss/reducer';
 import { combineReducers } from 'redux';
+import { ISourcesState } from '../modules/rss/types';
 
 export interface Reducers {
     rssReducer: ISourcesState;

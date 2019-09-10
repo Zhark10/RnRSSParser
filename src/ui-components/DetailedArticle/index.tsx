@@ -1,12 +1,12 @@
 import React from 'react';
 import { Left, Body, Text, Button, Content, Card, CardItem } from 'native-base';
-import { RSSResponseItem } from '../../redux/modules/rss/reducer';
 import style from './style';
-interface IDetailedDescriptionProps {
+import { RSSResponseItem } from '../../redux/modules/rss/types';
+interface IDetailedArticleProps {
     article: RSSResponseItem;
 }
 
-const DetailedDescription: React.FC<IDetailedDescriptionProps> = ({ article: { author, description, published, title } }) => (
+const DetailedArticle: React.FC<IDetailedArticleProps> = ({ article: { author, description, published, title } }) => (
     <Content>
         <Card style={style.card}>
             <CardItem>
@@ -38,4 +38,4 @@ const DetailedDescription: React.FC<IDetailedDescriptionProps> = ({ article: { a
 
 
 
-export default DetailedDescription;
+export default DetailedArticle;

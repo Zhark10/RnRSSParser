@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { ListItem, Thumbnail, Button, Icon } from 'native-base';
 import { Text } from 'react-native';
-import { RSSResponse } from '../../../redux/modules/rss/reducer';
 import style from './style';
+import { RSSResponse } from '../../../redux/modules/rss/types';
 
 interface ISourceHeaderProps extends RSSResponse {
     onSourceClick: () => void;

@@ -1,26 +1,6 @@
 import { Action } from '../../../types/action';
-import { SAVE_SOURCE, DELETE_SOURCE, DELETE_ALL_SOURCES } from '../../actions';
-
-export interface RSSResponseItem {
-    title: string;
-    link: string;
-    description: string;
-    author: string;
-    id: any;
-    published: string;
-}
-export interface RSSResponse {
-    id?: string;
-    title?: string;
-    imageUrl?: string;
-    link?: string;
-    description?: string;
-    items?: RSSResponseItem[]
-}
-export interface ISourcesState {
-    sources: any[];
-    isLoaded: boolean;
-}
+import { SAVE_SOURCE, DELETE_SOURCE, DELETE_ALL_SOURCES } from '../../store/actions';
+import { RSSResponse, ISourcesState } from './types';
 
 const initialState: ISourcesState = {
     sources: [],

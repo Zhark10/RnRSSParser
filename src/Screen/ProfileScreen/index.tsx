@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Wrapper from '../ScreenWrapper';
-import DetailedDescription from '../../ui-components/DetailedDescription';
+import DetailedArticle from '../../ui-components/DetailedArticle';
 
 interface IProfileScreenProps {
   navigation: any;
@@ -17,7 +17,7 @@ export default class ProfileScreen extends React.Component<IProfileScreenProps, 
     const { navigation: {state} } = this.props;
     return (
       <Wrapper headerTitle="Список новостей" goBack={this.goBack}>
-        <DetailedDescription article={state.params.article} />
+        <DetailedArticle article={state.params.article} />
       </Wrapper>
     );
   }

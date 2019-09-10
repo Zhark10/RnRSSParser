@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { List } from 'native-base';
-import { RSSResponse, RSSResponseItem } from '../../redux/modules/rss/reducer';
 import SourceHeader from './SourceHeader';
 import SourceArticles from './SourceArticles';
+import { RSSResponse, RSSResponseItem } from '../../redux/modules/rss/types';
 
 interface ISourceProps extends RSSResponse {
     onArticleClick?: (article: RSSResponseItem) => void;

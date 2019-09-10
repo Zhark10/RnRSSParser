@@ -1,4 +1,4 @@
-import { createRequestTypes } from "./utils/actionCreator";
+import { createRequestTypes } from "../utils/actionCreator";
 
 export const SAVE_SOURCE = createRequestTypes("rss/SAVE_SOURCE");
 export const DELETE_SOURCE = createRequestTypes("rss/DELETE_SOURCE");
