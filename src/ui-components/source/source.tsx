@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List } from 'native-base';
-import SourceHeader from './SourceHeader';
-import SourceArticles from './SourceArticles';
+import SourceHeader from './source-header/source-header';
+import SourceArticles from './source-articles/source-articles';
 import { RSSResponse, RSSResponseItem } from '../../redux/modules/rss/types';
 
 interface ISourceProps extends RSSResponse {

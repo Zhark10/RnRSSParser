@@ -10,5 +10,4 @@ export default StyleSheet.create({
     childrenButton: {
         backgroundColor: '#DD5144'
     }
-
 })

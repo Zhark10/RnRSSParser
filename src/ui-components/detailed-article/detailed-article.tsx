@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Left, Body, Text, Button, Content, Card, CardItem } from 'native-base';
 import style from './style';
 import { RSSResponseItem } from '../../redux/modules/rss/types';
@@ -6,7 +6,7 @@ interface IDetailedArticleProps {
     article: RSSResponseItem;
 }
 
-const DetailedArticle: React.FC<IDetailedArticleProps> = ({ article: { author, description, published, title } }) => (
+const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { author, description, published, title } }) => (
     <Content>
         <Card style={style.card}>
             <CardItem>

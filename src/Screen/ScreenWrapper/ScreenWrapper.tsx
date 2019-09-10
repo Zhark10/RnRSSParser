@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Subtitle } from 'native-base';
-import PopupMenu from '../../components/menu/PopupMenu';
+import PopupMenu from '../../components/menu/popup-menu/popup-menu';
+import { MenuActions } from '../../entities/menu';
 
-export enum MenuActions {
-    REMOVE = "Удалить все",
-    REFRESH = "Обновить"
-}
 interface IWrapperProps {
     headerTitle: string;
     goBack?: () => void;
@@ -13,7 +10,7 @@ interface IWrapperProps {
     menuItemClick?: (action: MenuActions, index: number) => any;
 }
 
-const Wrapper: React.FC<IWrapperProps> = ({ children, headerTitle, goBack, menuItemClick, menuActions }) => (
+const Wrapper: FC<IWrapperProps> = ({ children, headerTitle, goBack, menuItemClick, menuActions }) => (
     <Container>
         <Header>
             <Left>

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ListItem, Right, Body, Text, Button } from 'native-base';
+import { RSSResponse, RSSResponseItem } from '../../../redux/modules/rss/types';
 import Collapsible from 'react-native-collapsible'
-import { RSSResponseItem, RSSResponse } from '../../../redux/modules/rss/reducer';
 
 interface ISourceArticlesProps extends RSSResponse {
     onArticleClick: (article: RSSResponseItem) => void;

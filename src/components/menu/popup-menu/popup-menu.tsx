@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { View, TouchableOpacity, UIManager, findNodeHandle } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import style from './style';
-import { MenuActions } from '../../../Screen/ScreenWrapper';
+import { MenuActions } from '../../../entities/menu';
 
 const ICON_SIZE = 24;
 
@@ -11,7 +11,7 @@ interface IPopupMenu {
     onPress?: (item: MenuActions, index: number | undefined) => void
 }
 
-class PopupMenu extends React.Component<IPopupMenu> {
+class PopupMenu extends Component<IPopupMenu> {
 
     private handleShowPopupError = () => { };
 
