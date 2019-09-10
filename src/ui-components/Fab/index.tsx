@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, View, Button, Icon, Fab } from 'native-base';
+import { View, Button, Icon, Fab } from 'native-base';
 
 interface IFabButtonProps {
 

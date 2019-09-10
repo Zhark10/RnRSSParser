@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Thumbnail, Left, Body, Text, Button, Icon, Content, Card, CardItem } from 'native-base';
+import { RSSResponceItem } from '../../redux/rss/reducer';
 
 interface IDetailedDescriptionProps {
-    data: string;
+    article: RSSResponceItem;
 }
 
-const DetailedDescription: React.FC<IDetailedDescriptionProps> = ({ data }) => (
+const DetailedDescription: React.FC<IDetailedDescriptionProps> = ({ article: {author,link,description,id,published,title} }) => (
     <Content>
         <Card style={{ flex: 0 }}>
             <CardItem>
                 <Left>
-                    <Thumbnail source={{ uri: 'Image URL' }} />
+                    {/* <Thumbnail source={{ uri: require("../../redux/resource/images/rss.png") }} /> */}
                     <Body>
-                        <Text>{data}</Text>
-                        <Text note>April 15, 2016</Text>
+                        <Text>{title}</Text>
+                        <Text note>{published}</Text>
                     </Body>
                 </Left>
             </CardItem>
             <CardItem>
                 <Body>
                     <Text>
-                    //Your text here
+                    {description}
                     </Text>
                 </Body>
             </CardItem>
             <CardItem>
                 <Left>
                     <Button transparent textStyle={{ color: '#87838B' }}>
-                        <Icon name="logo-github" />
-                        <Text>1,926 stars</Text>
+                        <Text>{author}</Text>
                     </Button>
                 </Left>
             </CardItem>

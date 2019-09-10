@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { View, TextInput } from 'react-native';
-import Modal from "react-native-modal";
-import { Container, Header, Content, Form, Item, Input, Button, Text, Title, Body, Right, Left, Label } from 'native-base';
+import Modal from 'react-native-modal';
+import { Header, Button, Text, Title, Body, Right, Left } from 'native-base';
 
 interface IRSSModalProps {
     modalVisible: boolean;
