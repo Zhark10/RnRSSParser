@@ -1,8 +1,8 @@
-import { rssReducer, IRSSNewsState } from './rss/reducer';
+import { rssReducer, ISourcesState } from './modules/rss/reducer';
 import { combineReducers } from 'redux';
 
 export interface Reducers {
-    rssReducer: IRSSNewsState;
+    rssReducer: ISourcesState;
 }
 
 const rootReducer = combineReducers({

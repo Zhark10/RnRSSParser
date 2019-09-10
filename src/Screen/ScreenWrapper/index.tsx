@@ -1,11 +1,19 @@
 import React from 'react';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Subtitle } from 'native-base';
+import PopupMenu from '../../components/menu/PopupMenu';
+
+export enum MenuActions {
+    REMOVE = "Удалить все",
+    REFRESH = "Обновить"
+}
 interface IWrapperProps {
     headerTitle: string;
     goBack?: () => void;
+    menuActions?: MenuActions[];
+    menuItemClick?: (action: MenuActions, index: number) => any;
 }
 
-const Wrapper: React.FC<IWrapperProps> = ({ children, headerTitle, goBack }) => (
+const Wrapper: React.FC<IWrapperProps> = ({ children, headerTitle, goBack, menuItemClick, menuActions }) => (
     <Container>
         <Header>
             <Left>
@@ -18,9 +26,11 @@ const Wrapper: React.FC<IWrapperProps> = ({ children, headerTitle, goBack }) => 
                 <Subtitle>{headerTitle}</Subtitle>
             </Body>
             <Right>
-                <Button transparent>
-                    <Icon name="menu" />
-                </Button>
+                {menuActions && menuItemClick &&
+                    <Button transparent>
+                        <PopupMenu actions={menuActions} onPress={menuItemClick} />
+                    </Button>
+                }
             </Right>
         </Header>
         {children}

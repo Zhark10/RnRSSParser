@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './src/store';
+import { store, persistor } from './src/redux/store';
 import { View } from 'native-base';
 import { ActivityIndicator } from 'react-native';
 import RootComponent from './RootComponent';

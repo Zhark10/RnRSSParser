@@ -1,6 +1,7 @@
-import { createRequestTypes } from '../utils/actionCreator';
+import { createRequestTypes } from "./utils/actionCreator";
 
-export const SAVE_RSS_NEWS = createRequestTypes("rss/SAVE_RSS_NEWS");
-export const DELETE_RSS_NEWS = createRequestTypes("rss/DELETE_RSS_NEWS");
+export const SAVE_SOURCE = createRequestTypes("rss/SAVE_SOURCE");
+export const DELETE_SOURCE = createRequestTypes("rss/DELETE_SOURCE");
 
-export const LOAD_DEFAULT_RSS_IMAGE = "LOAD_DEFAULT_RSS_IMAGE";
+export const DELETE_ALL_SOURCES = "DELETE_ALL_SOURCES";
+export const REFRESH_ALL_SOURCES = "REFRESH_ALL_SOURCES";

@@ -1,20 +1,20 @@
 import * as React from 'react';
-import Wrapper from '../ScreenWrapper';
+import Wrapper, { MenuActions } from '../ScreenWrapper';
 import RSSModal from '../../ui-components/Modal';
-import ButtonToAdd from '../../ui-components/ButtonToAdd';
+import ButtonToAdd from '../../components/buttons/ButtonToAdd';
 import { connect } from 'react-redux';
-import { AppLoading } from 'expo';
-import { Content } from 'native-base';
-import { RSSResponse, RSSResponceItem } from '../../redux/rss/reducer';
-import { loadDefaultRSSImage, deleteSource, saveSource } from '../../redux/rss/action';
+import { Content, Spinner, Card, CardItem, Body, Text } from 'native-base';
+import { RSSResponse, RSSResponseItem } from '../../redux/modules/rss/reducer';
+import { deleteSource, saveSource, deleteAllSources } from '../../redux/modules/rss/action';
 import { Reducers } from '../../redux/rootReducer';
-import Article from '../../ui-components/RSSItem';
+import Article from '../../ui-components/Source';
+import { Alert } from 'react-native';
 
 interface IHomeScreenProps {
   navigation?: any;
-  source?: RSSResponse[];
+  sources?: RSSResponse[];
   dispatch?: Function;
-  isFetching: boolean;
+  isLoaded: boolean;
 }
 interface IHomeScreenState {
   showRSSModal: boolean;
@@ -26,20 +26,52 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
     showRSSModal: false
   }
 
-  componentDidMount() {
+  private menuItemClick = (action: MenuActions, index: number) => {
     const { dispatch } = this.props;
-    dispatch(loadDefaultRSSImage("https://cdn.onlinewebfonts.com/svg/thumbnails_60_229696.png"));
+    switch (index) {
+      case 0: {
+
+        break;
+      }
+      case 1: {
+        dispatch(deleteAllSources());
+        break;
+      }
+    }
   }
+
+  private addRSS = (rssUrl: string) => {
+    const { dispatch, sources } = this.props;
+    this.setState({ showRSSModal: false });
+    if (this.searchRSSinStore(sources, rssUrl)) {
+      Alert.alert("Ошибка", "Новостная лента уже добавлена");
+    } else {
+      dispatch(saveSource(rssUrl));
+    }
+  }
+
+  private searchRSSinStore = (sources: RSSResponse[], rssUrl: string) => {
+    return sources.map((elem: RSSResponse) => elem.id).includes(rssUrl);
+  }
+
+
+  private seeMore = (article: RSSResponseItem) => {
+    this.props.navigation.navigate("Profile", { article });
+  };
 
   render() {
     const { showRSSModal } = this.state;
-    const { source, dispatch, isFetching } = this.props;
+    const { sources, dispatch, isLoaded } = this.props;
     const { addRSS } = this;
     return (
-      <Wrapper headerTitle="Список лент" >
+      <Wrapper
+        headerTitle="Список лент"
+        menuActions={[MenuActions.REFRESH, MenuActions.REMOVE]}
+        menuItemClick={this.menuItemClick}
+      >
         <Content>
           {
-            isFetching && source && source.length ? source.map((elem: RSSResponse, key: number) => (
+            isLoaded ? (sources && sources.length) ? sources.map((elem: RSSResponse, key: number) => (
               <Article
                 key={key}
                 id={elem.id}
@@ -51,7 +83,16 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
                 onDeleteRSS={() => dispatch(deleteSource(elem.title))}
                 onArticleClick={this.seeMore}
               />
-            )) : <AppLoading />
+            )) : <Card transparent>
+                <CardItem>
+                  <Body>
+                    <Text>
+                    Новостная лента отсутствует. Вы можете добавить ресурс по RSS адресу, нажав на кнопку добавления.
+                </Text>
+                  </Body>
+                </CardItem>
+              </Card>
+              : <Spinner color="blue" />
           }
         </Content>
 
@@ -60,30 +101,11 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
       </Wrapper>
     );
   }
-
-  private addRSS = (rssUrl: string) => {
-    const { dispatch, source } = this.props;
-    this.setState({ showRSSModal: false });
-    if (this.searchRSSinStore(source, rssUrl)) {
-      alert("Новость уже добавлена");
-    } else {
-      dispatch(saveSource(rssUrl));
-    }
-  }
-
-  private searchRSSinStore = (source: RSSResponse[], rssUrl: string) => {
-    return source.map((elem: RSSResponse) => elem.id).includes(rssUrl);
-  }
-
-
-  private seeMore = (article: RSSResponceItem) => {
-
-    this.props.navigation.navigate("Profile", { article });
-  };
 }
 
-const mapStateToProps = ({ rssReducer }: Reducers): IHomeScreenProps => ({ 
-  source: rssReducer && rssReducer.source, 
-  isFetching: rssReducer && rssReducer.isFetching 
+const mapStateToProps = ({ rssReducer }: Reducers): IHomeScreenProps => ({
+  sources: rssReducer && rssReducer.sources,
+  isLoaded: rssReducer && rssReducer.isLoaded
 });
+
 export default connect(mapStateToProps)(HomeScreen);

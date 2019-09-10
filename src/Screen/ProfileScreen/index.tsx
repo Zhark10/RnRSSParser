@@ -8,6 +8,11 @@ interface IProfileScreenProps {
 interface IProfileScreenState { }
 
 export default class ProfileScreen extends React.Component<IProfileScreenProps, IProfileScreenState> {
+  
+  private goBack = () => {
+    this.props.navigation.navigate("Home")
+  };
+
   render() {
     const { navigation: {state} } = this.props;
     return (
@@ -16,9 +21,4 @@ export default class ProfileScreen extends React.Component<IProfileScreenProps, 
       </Wrapper>
     );
   }
-
-  private goBack = () => {
-    this.props.navigation.navigate("Home")
-  };
-
 }
