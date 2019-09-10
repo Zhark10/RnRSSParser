@@ -4,7 +4,6 @@ import DetailedDescription from '../../ui-components/DetailedDescription';
 
 interface IProfileScreenProps {
   navigation: any;
-  data: string;
 }
 interface IProfileScreenState { }
 
@@ -12,15 +11,14 @@ export default class ProfileScreen extends React.Component<IProfileScreenProps, 
   render() {
     const { navigation: {state} } = this.props;
     return (
-      <Wrapper headerTitle="Список новостей">
-        <DetailedDescription data={state.params.data} />
+      <Wrapper headerTitle="Список новостей" goBack={this.goBack}>
+        <DetailedDescription article={state.params.article} />
       </Wrapper>
     );
   }
 
-  // private seeMore = (data: string) => {
-  //   this.props.navigation.navigate("Profile", data);
-  // };
-
+  private goBack = () => {
+    this.props.navigation.navigate("Home")
+  };
 
 }

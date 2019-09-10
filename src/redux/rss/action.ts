@@ -1,7 +1,7 @@
-import { makeActionCreator } from "../../utils/actionCreator";
-import { SAVE_RSS_NEWS, DELETE_RSS_NEWS, LOAD_DEFAULT_RSS_IMAGE } from "../actions";
-import * as rssParser from "react-native-rss-parser";
-import { Dispatch } from "redux";
+import { SAVE_RSS_NEWS, DELETE_RSS_NEWS, LOAD_DEFAULT_RSS_IMAGE } from '../actions';
+import * as rssParser from 'react-native-rss-parser';
+import { Dispatch } from 'redux';
+import { makeActionCreator } from '../../utils/actionCreator';
 
 const saveRSSNewsRequest = makeActionCreator(SAVE_RSS_NEWS.REQUEST);
 const saveRSSNewsFailure = makeActionCreator(SAVE_RSS_NEWS.FAILURE);

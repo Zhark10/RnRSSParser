@@ -1,18 +1,16 @@
 import React from 'react';
-import { Container, Header, Left, Button, Icon, Body, Title, Right, Subtitle, Content } from 'native-base';
-import { NavigationActions } from 'react-navigation';
-
+import { Container, Header, Left, Button, Icon, Body, Title, Right, Subtitle } from 'native-base';
 interface IWrapperProps {
-    navigation?: any;
     headerTitle: string;
+    goBack?: () => void;
 }
 
-const Wrapper: React.FC<IWrapperProps> = ({ children, navigation, headerTitle }) => (
+const Wrapper: React.FC<IWrapperProps> = ({ children, headerTitle, goBack }) => (
     <Container>
         <Header>
             <Left>
-                {navigation && <Button onPress={() => this.props.navigation.goBack()} transparent>
-                    <Icon name='arrow-back' />
+                {goBack && <Button onPress={goBack} transparent>
+                    <Icon name="arrow-back" />
                 </Button>}
             </Left>
             <Body>
@@ -21,11 +19,11 @@ const Wrapper: React.FC<IWrapperProps> = ({ children, navigation, headerTitle })
             </Body>
             <Right>
                 <Button transparent>
-                    <Icon name='menu' />
+                    <Icon name="menu" />
                 </Button>
             </Right>
         </Header>
-            {children}
+        {children}
     </Container>
 );
 

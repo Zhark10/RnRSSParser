@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { AsyncStorage, View } from 'react-native';
 import Wrapper from '../ScreenWrapper';
 import RSSModal from '../../ui-components/Modal';
 import ButtonToAdd from '../../ui-components/ButtonToAdd';
 import { connect } from 'react-redux';
-import { Reducers } from '../../../redux/rootReducer';
-import { saveSource, deleteSource, loadDefaultRSSImage } from '../../../redux/rss/action';
-import RSSItem from '../../ui-components/RSSItem';
 import { AppLoading } from 'expo';
-import { RSSResponse } from '../../../redux/rss/reducer';
-import { List, Content } from 'native-base';
+import { Content } from 'native-base';
+import { RSSResponse, RSSResponceItem } from '../../redux/rss/reducer';
+import { loadDefaultRSSImage, deleteSource, saveSource } from '../../redux/rss/action';
+import { Reducers } from '../../redux/rootReducer';
+import Article from '../../ui-components/RSSItem';
 
 interface IHomeScreenProps {
   navigation?: any;
@@ -37,12 +36,11 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
     const { source, dispatch, isFetching } = this.props;
     const { addRSS } = this;
     return (
-      <Wrapper headerTitle="Новости" >
+      <Wrapper headerTitle="Список лент" >
         <Content>
-
           {
             isFetching && source && source.length ? source.map((elem: RSSResponse, key: number) => (
-              <RSSItem
+              <Article
                 key={key}
                 id={elem.id}
                 title={elem.title}
@@ -50,8 +48,8 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
                 link={elem.link}
                 description={elem.description}
                 items={elem.items}
-                onDelete={() => dispatch(deleteSource(elem.title))}
-                onClick={() => this.seeMore("more")}
+                onDeleteRSS={() => dispatch(deleteSource(elem.title))}
+                onArticleClick={this.seeMore}
               />
             )) : <AppLoading />
           }
@@ -78,8 +76,9 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
   }
 
 
-  private seeMore = (data: string) => {
-    this.props.navigation.navigate("Profile", { data });
+  private seeMore = (article: RSSResponceItem) => {
+
+    this.props.navigation.navigate("Profile", { article });
   };
 }
 

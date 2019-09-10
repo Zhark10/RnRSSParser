@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Root } from "native-base";
-import AppNavigator from "./src/Screen/Navigation";
-import * as Font from "expo-font";
+import React, { Component } from 'react';
+import { Root } from 'native-base';
+import AppNavigator from './src/Screen/Navigation';
+import * as Font from 'expo-font';
 
 interface IRootComponentProps { }
 interface IRootComponentState {

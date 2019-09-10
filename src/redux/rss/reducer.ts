@@ -1,12 +1,13 @@
-import { SAVE_RSS_NEWS, DELETE_RSS_NEWS, LOAD_DEFAULT_RSS_IMAGE } from "../actions";
-import { Action } from "../../types/action";
+import { SAVE_RSS_NEWS, DELETE_RSS_NEWS, LOAD_DEFAULT_RSS_IMAGE } from '../actions';
+import { Action } from '../../types/action';
 
 export interface RSSResponceItem {
     title: string;
     link: string;
     description: string;
     author: string;
-    guid: any
+    id: any;
+    published: string;
 }
 export interface RSSResponse {
     id: string;
