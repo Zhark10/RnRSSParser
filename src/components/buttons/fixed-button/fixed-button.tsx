@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View, Icon, Fab } from 'native-base';
+import style from './style';
 
 interface IFixedButtonProps {
   onClick: () => void;
 }
 
-const FixedButton: React.FC<IFixedButtonProps> = ({ onClick }) => (
+const FixedButton: FC<IFixedButtonProps> = ({ onClick }) => (
   <View >
     <Fab
       direction="up"
       containerStyle={{}}
-      style={{ backgroundColor: "#5067FF" }}
+      style={style.button}
       position="bottomRight"
       onPress={onClick}>
       <Icon name="add" />

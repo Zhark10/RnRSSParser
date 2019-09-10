@@ -1,14 +1,14 @@
-import * as React from 'react';
-import Wrapper, { MenuActions } from '../ScreenWrapper';
-import RSSModal from '../../ui-components/Modal';
+import React, { Component } from 'react';
+import Wrapper from '../ScreenWrapper/ScreenWrapper';
+import RSSModal from '../../ui-components/rss-modal/rss-modal';
 import { connect } from 'react-redux';
 import { Content, Spinner, Card, CardItem, Body, Text, Toast } from 'native-base';
 import { deleteSource, saveSource, deleteAllSources } from '../../redux/modules/rss/action';
 import { Reducers } from '../../redux/store/rootReducer';
-import { Alert } from 'react-native';
 import { RSSResponse, RSSResponseItem } from '../../redux/modules/rss/types';
-import FixedButton from '../../components/buttons/FixedButton';
-import Source from '../../ui-components/Source';
+import FixedButton from '../../components/buttons/fixed-button/fixed-button';
+import { MenuActions } from '../../entities/menu';
+import Source from '../../ui-components/source/source';
 
 interface IHomeScreenProps {
   navigation?: any;
@@ -20,7 +20,7 @@ interface IHomeScreenState {
   showRSSModal: boolean;
 }
 
-class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
+class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
 
   state: IHomeScreenState = {
     showRSSModal: false

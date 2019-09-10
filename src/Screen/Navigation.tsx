@@ -1,6 +1,6 @@
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
-import HomeScreen from './HomeScreen';
-import ProfileScreen from './ProfileScreen';
+import HomeScreen from './HomeScreen/HomeScreen';
+import ProfileScreen from './ProfileScreen/ProfileScreen';
 
 const MainNavigator = createSwitchNavigator({
   Home: { screen: HomeScreen },
