@@ -2,6 +2,7 @@ import React, { Component, createRef } from 'react';
 import { View, TextInput } from 'react-native';
 import Modal from 'react-native-modal';
 import { Header, Button, Text, Title, Body, Right, Left } from 'native-base';
+import style from './style';
 
 interface IRSSModalProps {
     modalVisible: boolean;
@@ -24,23 +25,23 @@ class RSSModal extends Component<IRSSModalProps, IRSSModalState> {
         const { modalVisible, onHide, addRSS } = this.props;
         const { inputText } = this.state;
         return (
-            <View style={{ marginTop: 22 }}>
+            <View style={style.modal}>
                 <Modal isVisible={modalVisible}>
-                    <View style={{backgroundColor: "#fff"}}>
+                    <View style={style.modalBody}>
                         <Header >
                             <Body>
-                                <Title style={{ paddingLeft: 8 }}>Добавить адрес</Title>
+                                <Title style={style.headerTitle}>Добавить адрес</Title>
                             </Body>
                         </Header>
-                        <View style={{ padding: 8 }} >
+                        <View style={style.modalContent} >
                             <TextInput
                                 placeholder={"Добавить RSS"}
-                                style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 4, borderRadius: 12 }}
+                                style={style.textInput}
                                 ref={(el) => { this.inputField = el; }}
                                 onChangeText={(inputText) => this.setState({ inputText })}
                                 value={inputText}
                             />
-                            <View style={{ marginTop: 16, minWidth: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                            <View style={style.buttonGroup}>
                                 <Left>
                                     <Button onPress={onHide} transparent>
                                         <Text>Отмена</Text>

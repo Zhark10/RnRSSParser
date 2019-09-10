@@ -1,14 +1,14 @@
 import React from 'react';
-import { Thumbnail, Left, Body, Text, Button, Icon, Content, Card, CardItem } from 'native-base';
-import { RSSResponceItem } from '../../redux/rss/reducer';
-
+import { Left, Body, Text, Button, Content, Card, CardItem } from 'native-base';
+import { RSSResponseItem } from '../../redux/modules/rss/reducer';
+import style from './style';
 interface IDetailedDescriptionProps {
-    article: RSSResponceItem;
+    article: RSSResponseItem;
 }
 
-const DetailedDescription: React.FC<IDetailedDescriptionProps> = ({ article: {author,link,description,id,published,title} }) => (
+const DetailedDescription: React.FC<IDetailedDescriptionProps> = ({ article: { author, description, published, title } }) => (
     <Content>
-        <Card style={{ flex: 0 }}>
+        <Card style={style.card}>
             <CardItem>
                 <Left>
                     {/* <Thumbnail source={{ uri: require("../../redux/resource/images/rss.png") }} /> */}
@@ -21,7 +21,7 @@ const DetailedDescription: React.FC<IDetailedDescriptionProps> = ({ article: {au
             <CardItem>
                 <Body>
                     <Text>
-                    {description}
+                        {description}
                     </Text>
                 </Body>
             </CardItem>
@@ -35,5 +35,7 @@ const DetailedDescription: React.FC<IDetailedDescriptionProps> = ({ article: {au
         </Card>
     </Content>
 );
+
+
 
 export default DetailedDescription;
