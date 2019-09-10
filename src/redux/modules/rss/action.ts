@@ -1,4 +1,4 @@
-import {  SAVE_SOURCE, DELETE_SOURCE, DELETE_ALL_SOURCES } from '../../actions';
+import {  SAVE_SOURCE, DELETE_SOURCE, DELETE_ALL_SOURCES } from '../../store/actions';
 import * as rssParser from 'react-native-rss-parser';
 import { Dispatch } from 'redux';
 import { makeActionCreator } from '../../utils/actionCreator';
@@ -8,7 +8,7 @@ const saveSourcesSuccess = makeActionCreator(SAVE_SOURCE.SUCCESS, "payload");
 
 const deleteSourcesSuccess = makeActionCreator(DELETE_SOURCE.SUCCESS, "payload");
 
-export function saveSource(rssUrl: string) {
+export function saveSource(rssUrl: string, cb?: Function) {
     return (dispatch: Dispatch<any>) => {
         dispatch(saveSourcesRequest());
         try {
@@ -17,6 +17,7 @@ export function saveSource(rssUrl: string) {
                 .then((responseData) => rssParser.parse(responseData))
                 .then((rss) => {
                     dispatch(saveSourcesSuccess({rss, rssUrl}));
+                    cb && cb();
                 });
         } catch (e) {
             alert("Некорректный адрес");

@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Icon, Fab } from 'native-base';
 
-interface IButtonToAddProps {
+interface IFixedButtonProps {
   onClick: () => void;
 }
 
-const ButtonToAdd: React.FC<IButtonToAddProps> = ({ onClick }) => (
+const FixedButton: React.FC<IFixedButtonProps> = ({ onClick }) => (
   <View >
     <Fab
       direction="up"
@@ -18,5 +18,5 @@ const ButtonToAdd: React.FC<IButtonToAddProps> = ({ onClick }) => (
   </View>
 );
 
-export default ButtonToAdd;
+export default FixedButton;
 

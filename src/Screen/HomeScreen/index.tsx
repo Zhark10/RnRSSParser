@@ -1,14 +1,14 @@
 import * as React from 'react';
 import Wrapper, { MenuActions } from '../ScreenWrapper';
 import RSSModal from '../../ui-components/Modal';
-import ButtonToAdd from '../../components/buttons/ButtonToAdd';
 import { connect } from 'react-redux';
-import { Content, Spinner, Card, CardItem, Body, Text } from 'native-base';
-import { RSSResponse, RSSResponseItem } from '../../redux/modules/rss/reducer';
+import { Content, Spinner, Card, CardItem, Body, Text, Toast } from 'native-base';
 import { deleteSource, saveSource, deleteAllSources } from '../../redux/modules/rss/action';
-import { Reducers } from '../../redux/rootReducer';
-import Article from '../../ui-components/Source';
+import { Reducers } from '../../redux/store/rootReducer';
 import { Alert } from 'react-native';
+import { RSSResponse, RSSResponseItem } from '../../redux/modules/rss/types';
+import FixedButton from '../../components/buttons/FixedButton';
+import Source from '../../ui-components/Source';
 
 interface IHomeScreenProps {
   navigation?: any;
@@ -35,6 +35,7 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
       }
       case 1: {
         dispatch(deleteAllSources());
+        this.showMessage("Просто взял и все снес ;(")
         break;
       }
     }
@@ -44,11 +45,22 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
     const { dispatch, sources } = this.props;
     this.setState({ showRSSModal: false });
     if (this.searchRSSinStore(sources, rssUrl)) {
-      Alert.alert("Ошибка", "Новостная лента уже добавлена");
+      this.showMessage("Опять её же? Зачем?")
     } else {
-      dispatch(saveSource(rssUrl));
+      dispatch(saveSource(rssUrl, () => this.showMessage("Ура! Лента добавлена!")));
     }
   }
+
+  private showMessage = (text: string) => (
+    Toast.show({
+      text,
+      duration: 2000,
+      style: { backgroundColor: "#cde1f9" },
+      textStyle: { color: "#000" },
+      buttonTextStyle: { color: "#000" },
+      buttonText: "ОК"
+    })
+  )
 
   private searchRSSinStore = (sources: RSSResponse[], rssUrl: string) => {
     return sources.map((elem: RSSResponse) => elem.id).includes(rssUrl);
@@ -72,7 +84,7 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
         <Content>
           {
             isLoaded ? (sources && sources.length) ? sources.map((elem: RSSResponse, key: number) => (
-              <Article
+              <Source
                 key={key}
                 id={elem.id}
                 title={elem.title}
@@ -87,7 +99,7 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
                 <CardItem>
                   <Body>
                     <Text>
-                    Новостная лента отсутствует. Вы можете добавить ресурс по RSS адресу, нажав на кнопку добавления.
+                      Пока загруженных новостных лент нет, но ты можешь добавить ее, нажав на кнопку внизу экрана.
                 </Text>
                   </Body>
                 </CardItem>
@@ -96,7 +108,7 @@ class HomeScreen extends React.Component<IHomeScreenProps, IHomeScreenState> {
           }
         </Content>
 
-        <ButtonToAdd onClick={() => this.setState({ showRSSModal: true })} />
+        <FixedButton onClick={() => this.setState({ showRSSModal: true })} />
         <RSSModal modalVisible={showRSSModal} onHide={() => this.setState({ showRSSModal: false })} addRSS={addRSS} />
       </Wrapper>
     );
