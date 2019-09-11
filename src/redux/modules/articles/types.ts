@@ -5,7 +5,7 @@ export interface IArticle {
     author: string;
     id: any;
     published: string;
-    image: string;
+    [key: string]: any;
 }
 
 export interface Articles {
