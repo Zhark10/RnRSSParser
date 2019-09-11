@@ -31,4 +31,4 @@ It is possible to download news feeds and view news for each of them.
 | Lodash  | A JavaScript utility library delivering consistency, modularity, performance, & extras.  |
 | Native-base  | NativeBase is an open source framework to build React Native apps over a single JavaScript codebase for Android and iOS.  |
 
-##Thanks for attention!
+## Thanks for attention!
