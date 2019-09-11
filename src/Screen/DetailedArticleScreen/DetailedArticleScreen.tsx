@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Wrapper from '../ScreenWrapper/ScreenWrapper';
 import DetailedArticle from '../../ui-components/detailed-article/detailed-article';
 
-interface IProfileScreenProps {
+interface IDetailedArticleScreenProps {
   navigation: any;
 }
-interface IProfileScreenState { }
+interface IDetailedArticleScreenState { }
 
-export default class ProfileScreen extends Component<IProfileScreenProps, IProfileScreenState> {
+export default class DetailedArticleScreen extends Component<IDetailedArticleScreenProps, IDetailedArticleScreenState> {
   
   private goBack = () => {
     this.props.navigation.navigate("Home")

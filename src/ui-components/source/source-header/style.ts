@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     listItem: {
-        backgroundColor: "#cde1f9",
+        backgroundColor: "#fff",
         display: "flex",
         justifyContent: "space-between"
     }

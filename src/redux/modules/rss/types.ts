@@ -18,5 +18,6 @@ export interface RSSResponse {
 
 export interface ISourcesState {
     sources: any[];
+    currentSourceId: string;
     isLoaded: boolean;
 }

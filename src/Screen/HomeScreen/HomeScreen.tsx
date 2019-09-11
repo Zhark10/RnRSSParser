@@ -3,18 +3,23 @@ import Wrapper from '../ScreenWrapper/ScreenWrapper';
 import RSSModal from '../../ui-components/rss-modal/rss-modal';
 import { connect } from 'react-redux';
 import { Content, Spinner, Card, CardItem, Body, Text, Toast } from 'native-base';
-import { deleteSource, saveSource, deleteAllSources } from '../../redux/modules/rss/action';
+import { deleteSource, saveSource, deleteAllSources, saveIdByCurrentSource } from '../../redux/modules/rss/action';
 import { Reducers } from '../../redux/store/rootReducer';
-import { RSSResponse, RSSResponseItem } from '../../redux/modules/rss/types';
+import { RSSResponse } from '../../redux/modules/rss/types';
 import FixedButton from '../../components/buttons/fixed-button/fixed-button';
-import { MenuActions } from '../../entities/menu';
+import { HomeMenuActions } from '../../entities/menu';
 import Source from '../../ui-components/source/source';
+import { Articles } from '../../redux/modules/articlesReducer/types';
+import style from './style';
+import { showMessage } from '../../utils/helpers';
 
 interface IHomeScreenProps {
   navigation?: any;
   sources?: RSSResponse[];
   dispatch?: Function;
   isLoaded: boolean;
+  currentSourceId?: string;
+  articles: Articles;
 }
 interface IHomeScreenState {
   showRSSModal: boolean;
@@ -26,7 +31,7 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
     showRSSModal: false
   }
 
-  private menuItemClick = (action: MenuActions, index: number) => {
+  private menuItemClick = (action: HomeMenuActions, index: number) => {
     const { dispatch } = this.props;
     switch (index) {
       case 0: {
@@ -35,7 +40,7 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
       }
       case 1: {
         dispatch(deleteAllSources());
-        this.showMessage("Просто взял и все снес ;(")
+        showMessage("Просто взял и все снес ;(")
         break;
       }
     }
@@ -45,62 +50,52 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
     const { dispatch, sources } = this.props;
     this.setState({ showRSSModal: false });
     if (this.searchRSSinStore(sources, rssUrl)) {
-      this.showMessage("Опять её же? Зачем?")
+      showMessage("Опять её же? Зачем?")
     } else {
-      dispatch(saveSource(rssUrl, () => this.showMessage("Ура! Лента добавлена!")));
+      dispatch(saveSource(rssUrl, () => showMessage("Ура! Лента добавлена!")));
     }
   }
-
-  private showMessage = (text: string) => (
-    Toast.show({
-      text,
-      duration: 2000,
-      style: { backgroundColor: "#cde1f9" },
-      textStyle: { color: "#000" },
-      buttonTextStyle: { color: "#000" },
-      buttonText: "ОК"
-    })
-  )
 
   private searchRSSinStore = (sources: RSSResponse[], rssUrl: string) => {
     return sources.map((elem: RSSResponse) => elem.id).includes(rssUrl);
   }
 
-
-  private seeMore = (article: RSSResponseItem) => {
-    this.props.navigation.navigate("Profile", { article });
+  private onSourceClick = (rssUrl: string, rssTitle: string) => {
+    const { dispatch } = this.props;
+    dispatch(saveIdByCurrentSource(rssUrl))
+    this.props.navigation.navigate("Articles", { rssUrl, rssTitle });
   };
 
   render() {
     const { showRSSModal } = this.state;
     const { sources, dispatch, isLoaded } = this.props;
     const { addRSS } = this;
+    const emptyContentText = "Пока загруженных новостных лент нет, но ты можешь добавить ее, нажав на кнопку внизу экрана.";
     return (
       <Wrapper
         headerTitle="Список лент"
-        menuActions={[MenuActions.REFRESH, MenuActions.REMOVE]}
+        homeMenuActions={[HomeMenuActions.REFRESH, HomeMenuActions.REMOVE]}
         menuItemClick={this.menuItemClick}
       >
         <Content>
           {
-            isLoaded ? (sources && sources.length) ? sources.map((elem: RSSResponse, key: number) => (
+            isLoaded ? (sources && sources.length) ? sources.map((rss: RSSResponse) => (
               <Source
-                key={key}
-                id={elem.id}
-                title={elem.title}
-                imageUrl={elem.imageUrl}
-                link={elem.link}
-                description={elem.description}
-                items={elem.items}
-                onDeleteRSS={() => dispatch(deleteSource(elem.title))}
-                onArticleClick={this.seeMore}
+                key={rss.id}
+                id={rss.id}
+                title={rss.title}
+                imageUrl={rss.imageUrl}
+                link={rss.link}
+                description={rss.description}
+                items={rss.items}
+                onSourceClick={()=>this.onSourceClick(rss.id, rss.title)}
+                onDeleteRSS={() => dispatch(deleteSource(rss.title))}
               />
-            )) : <Card transparent>
-                <CardItem>
+            )) :
+              <Card transparent>
+                <CardItem style={style.emptyContentText}>
                   <Body>
-                    <Text>
-                      Пока загруженных новостных лент нет, но ты можешь добавить ее, нажав на кнопку внизу экрана.
-                </Text>
+                    <Text>{emptyContentText}</Text>
                   </Body>
                 </CardItem>
               </Card>
@@ -115,9 +110,11 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
   }
 }
 
-const mapStateToProps = ({ rssReducer }: Reducers): IHomeScreenProps => ({
-  sources: rssReducer && rssReducer.sources,
-  isLoaded: rssReducer && rssReducer.isLoaded
+const mapStateToProps = ({ rssReducer, articlesReducer }: Reducers): IHomeScreenProps => ({
+  sources: rssReducer.sources,
+  isLoaded: rssReducer.isLoaded,
+  currentSourceId: rssReducer.currentSourceId,
+  articles: articlesReducer.articles,
 });
 
 export default connect(mapStateToProps)(HomeScreen);
