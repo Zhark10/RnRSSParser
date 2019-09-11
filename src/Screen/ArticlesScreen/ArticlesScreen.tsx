@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Wrapper from '../ScreenWrapper/ScreenWrapper';
 import { connect } from 'react-redux';
-import { Content, Spinner, Body, Text, ListItem, Right, Button, Left } from 'native-base';
+import { Content, Spinner, Body, Text, ListItem, Right, Button, Left, View } from 'native-base';
 import { Reducers } from '../../redux/store/root-reducer';
 import { HomeMenuActions, ArticlesMenuActions } from '../../entities/menu';
 import PTRView from 'react-native-pull-to-refresh';
@@ -9,6 +9,7 @@ import { Articles, IArticle } from '../../redux/modules/articles/types';
 import { refreshSourceArticles } from '../../redux/modules/articles/action';
 import { showMessage } from '../../utils/helpers';
 import _ from 'lodash';
+import style from './style';
 
 interface IArticlesScreenProps {
   navigation?: any;
@@ -84,9 +85,12 @@ class ArticlesScreen extends Component<IArticlesScreenProps, IArticlesScreenStat
                   <Text note numberOfLines={1}>{article.published}</Text>
                 </Body>
                 <Right>
-                  <Button onPress={() => this.onArticleClick(article, rssUrl, rssTitle)} transparent>
-                    <Text>View</Text>
-                  </Button>
+                  <View style={style.viewButton}>
+                    <Button
+                      onPress={() => this.onArticleClick(article, rssUrl, rssTitle)} transparent>
+                      <Text>View</Text>
+                    </Button>
+                  </View>
                 </Right>
               </ListItem>
             ) : <Spinner color="blue" />}
