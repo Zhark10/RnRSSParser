@@ -11,8 +11,8 @@ interface ISourceArticlesProps extends RSSResponse {
 
 const SourceArticles: FC<ISourceArticlesProps> = ({ onArticleClick, isCollapsed, articles }) => (
     <Collapsible collapsed={isCollapsed}>
-        {articles.map((article: IArticle, key: number) =>
-            <ListItem key={key} thumbnail onPress={() => onArticleClick(article)}>
+        {articles.map((article: IArticle) =>
+            <ListItem key={article.id} thumbnail onPress={() => onArticleClick(article)}>
                 <Body>
                     <Text>{article.title}</Text>
                     <Text note numberOfLines={1}>{article.id}</Text>

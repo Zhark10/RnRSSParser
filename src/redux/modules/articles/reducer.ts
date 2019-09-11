@@ -54,7 +54,7 @@ const ArticleCorrect = (article: IArticle) => ({
     author: article.author ? article.author : "",
     id: article.id ? article.id : "",
     published: article.published ? article.published : "",
-    image: article.image ? article.image : null
+    image: article.enclosure ? article.enclosure.getAttribute('url') : null
 });
 
 const sortArticles = (articles: Articles, rssUrl: string) => {

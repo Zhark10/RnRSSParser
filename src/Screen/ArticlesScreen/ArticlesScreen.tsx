@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Wrapper from '../ScreenWrapper/ScreenWrapper';
 import { connect } from 'react-redux';
-import { Content, Spinner, Body, Text, ListItem, Right, Button } from 'native-base';
+import { Content, Spinner, Body, Text, ListItem, Right, Button, Left } from 'native-base';
 import { Reducers } from '../../redux/store/root-reducer';
 import { HomeMenuActions, ArticlesMenuActions } from '../../entities/menu';
 import PTRView from 'react-native-pull-to-refresh';
@@ -74,10 +74,13 @@ class ArticlesScreen extends Component<IArticlesScreenProps, IArticlesScreenStat
         menuItemClick={this.menuItemClick}>
         <PTRView onRefresh={() => this.onRefresh(rssUrl, dispatch)}>
           <Content>
-            {sortedArticles ? sortedArticles[rssUrl].map((article: IArticle, key: number) =>
-              <ListItem key={key} thumbnail onPress={() => this.onArticleClick(article, rssUrl, rssTitle)}>
+            {sortedArticles ? sortedArticles[rssUrl].map((article: IArticle) =>
+              <ListItem
+                key={article.id}
+                thumbnail
+                onPress={() => this.onArticleClick(article, rssUrl, rssTitle)}>
                 <Body>
-                  <Text>{article.title}</Text>
+                  <Text numberOfLines={3}>{article.title}</Text>
                   <Text note numberOfLines={1}>{article.published}</Text>
                 </Body>
                 <Right>

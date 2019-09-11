@@ -55,9 +55,9 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
     }
   }
 
-  private searchRSSinStore = (sources: RSSResponse[], rssUrl: string) => {
-    return sources.map((elem: RSSResponse) => elem.id).includes(rssUrl);
-  }
+  private searchRSSinStore = (sources: RSSResponse[], rssUrl: string) => (
+    sources.map((elem: RSSResponse) => elem.id).includes(rssUrl)
+  )
 
   private onSourceClick = (rssUrl: string, rssTitle: string) => {
     this.props.navigation.navigate("Articles", { rssUrl, rssTitle });
@@ -84,7 +84,7 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
                 imageUrl={rss.imageUrl}
                 link={rss.link}
                 description={rss.description}
-                onSourceClick={()=>this.onSourceClick(rss.id, rss.title)}
+                onSourceClick={() => this.onSourceClick(rss.id, rss.title)}
                 onDeleteRSS={() => dispatch(deleteSource(rss.title))}
               />
             )) :
