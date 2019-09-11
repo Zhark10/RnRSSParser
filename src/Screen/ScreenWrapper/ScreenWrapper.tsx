@@ -1,17 +1,18 @@
 import React, { FC } from 'react';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Subtitle } from 'native-base';
 import PopupMenu from '../../components/menu/popup-menu/popup-menu';
-import { MenuActions } from '../../entities/menu';
-
+import { HomeMenuActions } from '../../entities/menu';
+import style from './style';
 interface IWrapperProps {
     headerTitle: string;
     goBack?: () => void;
-    menuActions?: MenuActions[];
-    menuItemClick?: (action: MenuActions, index: number) => any;
+    onRefresh?: () => void;
+    homeMenuActions?: HomeMenuActions[];
+    menuItemClick?: (action: HomeMenuActions, index: number) => any;
 }
 
-const Wrapper: FC<IWrapperProps> = ({ children, headerTitle, goBack, menuItemClick, menuActions }) => (
-    <Container>
+const Wrapper: FC<IWrapperProps> = ({ children, onRefresh, headerTitle, goBack, menuItemClick, homeMenuActions }) => (
+    <Container style={style.wrapperContainer}>
         <Header>
             <Left>
                 {goBack && <Button onPress={goBack} transparent>
@@ -19,13 +20,12 @@ const Wrapper: FC<IWrapperProps> = ({ children, headerTitle, goBack, menuItemCli
                 </Button>}
             </Left>
             <Body>
-                <Title>Новости</Title>
-                <Subtitle>{headerTitle}</Subtitle>
+                <Title>{headerTitle}</Title>
             </Body>
             <Right>
-                {menuActions && menuItemClick &&
+                {HomeMenuActions && menuItemClick &&
                     <Button transparent>
-                        <PopupMenu actions={menuActions} onPress={menuItemClick} />
+                        <PopupMenu actions={homeMenuActions} onPress={menuItemClick} />
                     </Button>
                 }
             </Right>

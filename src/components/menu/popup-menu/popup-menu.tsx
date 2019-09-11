@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import { View, TouchableOpacity, UIManager, findNodeHandle } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import style from './style';
-import { MenuActions } from '../../../entities/menu';
+import { HomeMenuActions } from '../../../entities/menu';
 
 const ICON_SIZE = 24;
 
 interface IPopupMenu {
     actions: string[],
-    onPress?: (item: MenuActions, index: number | undefined) => void
+    onPress?: (item: HomeMenuActions, index: number | undefined) => void
 }
 
 class PopupMenu extends Component<IPopupMenu> {

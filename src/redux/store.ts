@@ -11,6 +11,7 @@ const persistConfig = {
   storage: AsyncStorage,
   whitelist: [
     "rssReducer",
+    "articlesReducer"
   ],
   blacklist: [],
 };

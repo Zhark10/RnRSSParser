@@ -38,7 +38,7 @@ class RSSModal extends Component<IRSSModalProps, IRSSModalState> {
                                 placeholder={"Добавить RSS"}
                                 style={style.textInput}
                                 ref={(el) => { this.inputField = el; }}
-                                onChangeText={(inputText) => this.setState({ inputText })}
+                                onChangeText={(inputText: string) => this.setState({ inputText })}
                                 value={inputText}
                             />
                             <View style={style.buttonGroup}>
