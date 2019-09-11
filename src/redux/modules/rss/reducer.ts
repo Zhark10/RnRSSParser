@@ -1,10 +1,9 @@
 import { Action } from '../../types/types';
-import { SAVE_SOURCE, DELETE_SOURCE, DELETE_ALL_SOURCES, SAVE_ID_BY_CURRENT_SOURCE, REFRESH_SOURCE_ARTICLES } from '../../store/actions';
+import { SAVE_SOURCE, DELETE_SOURCE, DELETE_ALL_SOURCES, REFRESH_ALL_SOURCES } from '../../store/actions';
 import { RSSResponse, ISourcesState } from './types';
 
 const initialState: ISourcesState = {
     sources: [],
-    currentSourceId: null,
     isLoaded: false
 };
 
@@ -17,8 +16,7 @@ export function rssReducer(state: ISourcesState = initialState, action: Action<a
                 ...state,
                 isLoaded: false
             };
-
-        case SAVE_SOURCE.SUCCESS:{
+        case SAVE_SOURCE.SUCCESS: {
             const { rssUrl, rss } = payload;
             return {
                 ...state,
@@ -38,12 +36,13 @@ export function rssReducer(state: ISourcesState = initialState, action: Action<a
                 sources: [],
                 isLoaded: true
             }
-        case SAVE_ID_BY_CURRENT_SOURCE:
+        case SAVE_SOURCE.FAILURE:
+        case DELETE_SOURCE.FAILURE:
+        case REFRESH_ALL_SOURCES:
             return {
                 ...state,
-                currentSourceId: payload,
                 isLoaded: true
-            }
+            };
         default:
             return state;
     }
@@ -54,6 +53,5 @@ const RSSCorrect = (rssUrl: string, rss: any) => ({
     imageUrl: rss.image ? rss.image.url : null,
     link: rss.link ? rss.link : "",
     description: rss.description ? rss.description : "",
-    items: rss.items ? rss.items : [],
     id: rssUrl
 });

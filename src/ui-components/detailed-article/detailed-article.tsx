@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
-import { Left, Body, Text, Button, Content, Card, CardItem } from 'native-base';
+import { Left, Body, Text, Button, Content, Card, CardItem, Thumbnail } from 'native-base';
 import style from './style';
-import { RSSResponseItem } from '../../redux/modules/rss/types';
+import { IArticle } from '../../redux/modules/articles/types';
 interface IDetailedArticleProps {
-    article: RSSResponseItem;
+    article: IArticle;
 }
 
-const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { author, description, published, title } }) => (
+const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { author, description, published, title, image } }) => (
     <Content>
         <Card style={style.card}>
             <CardItem>
                 <Left>
-                    {/* <Thumbnail source={{ uri: require("../../redux/resource/images/rss.png") }} /> */}
+                    <Thumbnail source={image ? { uri: image } : require("../../resource/images/rss.png")} />
                     <Body>
                         <Text>{title}</Text>
                         <Text note>{published}</Text>
@@ -21,7 +21,7 @@ const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { author, descrip
             <CardItem>
                 <Body>
                     <Text>
-                        {description}
+                        {description.replace(/<[^>]*>/g, '')}
                     </Text>
                 </Body>
             </CardItem>

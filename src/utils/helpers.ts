@@ -10,3 +10,5 @@ export const showMessage = (text: string) => (
       buttonText: "ОК"
     })
   )
+
+  export const textToUrl = (text: string) => ("https://" + text.replace("http://", "").replace("https://", ""));
