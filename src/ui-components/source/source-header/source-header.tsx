@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ListItem, Thumbnail, Left, Body, Right, Button } from 'native-base';
+import { ListItem, Thumbnail, Left, Body, Right } from 'native-base';
 import { Text } from 'react-native';
 import style from './style';
 import { RSSResponse } from '../../../redux/modules/rss/types';

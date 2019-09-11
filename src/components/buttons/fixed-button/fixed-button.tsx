@@ -10,7 +10,6 @@ const FixedButton: FC<IFixedButtonProps> = ({ onClick }) => (
   <View >
     <Fab
       direction="up"
-      containerStyle={{}}
       style={style.button}
       position="bottomRight"
       onPress={onClick}>
