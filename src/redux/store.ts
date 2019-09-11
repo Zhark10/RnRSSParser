@@ -4,7 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { createLogger } from 'redux-logger';
 import reduxThunk  from 'redux-thunk';
 import promise from 'redux-promise';
-import rootReducer from './store/rootReducer';
+import rootReducer from './store/root-reducer';
 
 const persistConfig = {
   key: "root",

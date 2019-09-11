@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import Wrapper from '../ScreenWrapper/ScreenWrapper';
 import RSSModal from '../../ui-components/rss-modal/rss-modal';
 import { connect } from 'react-redux';
-import { Content, Spinner, Card, CardItem, Body, Text, Toast } from 'native-base';
-import { deleteSource, saveSource, deleteAllSources, saveIdByCurrentSource } from '../../redux/modules/rss/action';
-import { Reducers } from '../../redux/store/rootReducer';
+import { Content, Spinner, Card, CardItem, Body, Text } from 'native-base';
+import { deleteSource, saveSource, deleteAllSources } from '../../redux/modules/rss/action';
+import { Reducers } from '../../redux/store/root-reducer';
 import { RSSResponse } from '../../redux/modules/rss/types';
 import FixedButton from '../../components/buttons/fixed-button/fixed-button';
 import { HomeMenuActions } from '../../entities/menu';
 import Source from '../../ui-components/source/source';
-import { Articles } from '../../redux/modules/articlesReducer/types';
+import { Articles } from '../../redux/modules/articles/types';
 import style from './style';
 import { showMessage } from '../../utils/helpers';
 
@@ -18,7 +18,6 @@ interface IHomeScreenProps {
   sources?: RSSResponse[];
   dispatch?: Function;
   isLoaded: boolean;
-  currentSourceId?: string;
   articles: Articles;
 }
 interface IHomeScreenState {
@@ -61,8 +60,6 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
   }
 
   private onSourceClick = (rssUrl: string, rssTitle: string) => {
-    const { dispatch } = this.props;
-    dispatch(saveIdByCurrentSource(rssUrl))
     this.props.navigation.navigate("Articles", { rssUrl, rssTitle });
   };
 
@@ -87,7 +84,6 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
                 imageUrl={rss.imageUrl}
                 link={rss.link}
                 description={rss.description}
-                items={rss.items}
                 onSourceClick={()=>this.onSourceClick(rss.id, rss.title)}
                 onDeleteRSS={() => dispatch(deleteSource(rss.title))}
               />
@@ -113,7 +109,6 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
 const mapStateToProps = ({ rssReducer, articlesReducer }: Reducers): IHomeScreenProps => ({
   sources: rssReducer.sources,
   isLoaded: rssReducer.isLoaded,
-  currentSourceId: rssReducer.currentSourceId,
   articles: articlesReducer.articles,
 });
 

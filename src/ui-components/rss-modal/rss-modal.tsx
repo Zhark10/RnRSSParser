@@ -3,6 +3,7 @@ import { View, TextInput } from 'react-native';
 import Modal from 'react-native-modal';
 import { Header, Button, Text, Title, Body, Right, Left } from 'native-base';
 import style from './style';
+import { textToUrl } from '../../utils/helpers';
 
 interface IRSSModalProps {
     modalVisible: boolean;
@@ -24,6 +25,7 @@ class RSSModal extends Component<IRSSModalProps, IRSSModalState> {
     render() {
         const { modalVisible, onHide, addRSS } = this.props;
         const { inputText } = this.state;
+        const text = textToUrl(inputText);
         return (
             <View style={style.modal}>
                 <Modal isVisible={modalVisible}>
@@ -48,7 +50,7 @@ class RSSModal extends Component<IRSSModalProps, IRSSModalState> {
                                     </Button>
                                 </Left>
                                 <Right>
-                                    <Button onPress={() => addRSS(inputText)}>
+                                    <Button onPress={() => addRSS(text)}>
                                         <Text>Добавить</Text>
                                     </Button>
                                 </Right>

@@ -10,14 +10,15 @@ interface IDetailedArticleScreenState { }
 export default class DetailedArticleScreen extends Component<IDetailedArticleScreenProps, IDetailedArticleScreenState> {
   
   private goBack = () => {
-    this.props.navigation.navigate("Home")
+    const { params: { rssUrl, rssTitle } } = this.props.navigation.state;
+    this.props.navigation.navigate("Articles", { rssUrl, rssTitle });
   };
 
   render() {
-    const { navigation: {state} } = this.props;
+    const { params: { article } } = this.props.navigation.state;
     return (
-      <Wrapper headerTitle="Список новостей" goBack={this.goBack}>
-        <DetailedArticle article={state.params.article} />
+      <Wrapper headerTitle={"Новость"} goBack={this.goBack}>
+        <DetailedArticle article={article} />
       </Wrapper>
     );
   }

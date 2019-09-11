@@ -1,8 +1,8 @@
 import { rssReducer } from '../modules/rss/reducer';
-import { articlesReducer } from '../modules/articlesReducer/reducer';
+import { articlesReducer } from '../modules/articles/reducer';
 import { combineReducers } from 'redux';
 import { ISourcesState } from '../modules/rss/types';
-import { IArticlesByUrlState } from '../modules/articlesReducer/types';
+import { IArticlesByUrlState } from '../modules/articles/types';
 
 export interface Reducers {
     rssReducer: ISourcesState;

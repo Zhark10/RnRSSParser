@@ -1,11 +1,4 @@
-export interface RSSResponseItem {
-    title: string;
-    link: string;
-    description: string;
-    author: string;
-    id: any;
-    published: string;
-}
+import { IArticle } from "../articles/types";
 
 export interface RSSResponse {
     id?: string;
@@ -13,11 +6,10 @@ export interface RSSResponse {
     imageUrl?: string;
     link?: string;
     description?: string;
-    items?: RSSResponseItem[]
+    items?: IArticle[]
 }
 
 export interface ISourcesState {
-    sources: any[];
-    currentSourceId: string;
+    sources: RSSResponse[];
     isLoaded: boolean;
 }

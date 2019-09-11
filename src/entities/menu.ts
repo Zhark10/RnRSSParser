@@ -4,6 +4,6 @@ export enum HomeMenuActions {
 }
 
 export enum ArticlesMenuActions {
-    SORT_BY_DATE = "По дате",
+    SORT_BY_DATE = "Сортировать по дате",
     REFRESH = "Обновить"
 }
