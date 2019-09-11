@@ -1,25 +1,25 @@
 import React, { FC } from 'react';
-import { ListItem, Thumbnail, Button, Icon } from 'native-base';
+import { ListItem, Thumbnail, Left, Body, Right, Button } from 'native-base';
 import { Text } from 'react-native';
 import style from './style';
 import { RSSResponse } from '../../../redux/modules/rss/types';
 
-interface ISourceHeaderProps extends RSSResponse {
-    onSourceClick: () => void;
-    onDeleteRSS: () => void;
-}
+interface IRSSProps extends RSSResponse { }
 
-const SourceHeader: FC<ISourceHeaderProps> = ({ onDeleteRSS, title, imageUrl, onSourceClick }) => (
+const RSS: FC<IRSSProps> = ({ title, imageUrl }) => (
     <ListItem
-        onPress={onSourceClick}
         noIndent
         style={style.listItem}>
-        <Thumbnail circular source={imageUrl ? { uri: imageUrl } : require("../../../resource/images/rss.png")} />
-        <Text>{title}</Text>
-        <Button transparent onPress={onDeleteRSS}>
-            <Icon name="trash" />
-        </Button>
+        <Left>
+            <Thumbnail circular source={imageUrl ? { uri: imageUrl } : require("../../../resource/images/rss.png")} />
+        </Left>
+        <Body>
+            <Text>{title}</Text>
+        </Body>
+        <Right style={style.rightStyle}>
+            <Text style={style.rightText}>PLEASE SWIPE</Text>
+        </Right>
     </ListItem>
 );
 
-export default SourceHeader;
+export default RSS;

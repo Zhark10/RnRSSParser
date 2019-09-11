@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { List } from 'native-base';
-import SourceHeader from './source-header/source-header';
+import RSS from './source-header/source-header';
 import { RSSResponse } from '../../redux/modules/rss/types';
-
+import Swipeout from 'react-native-swipeout';
+import { Button, Icon } from 'native-base';
+import style from './style';
 interface ISourceProps extends RSSResponse {
     onDeleteRSS: () => void;
     onSourceClick: (id: string) => void;
@@ -24,15 +25,31 @@ class Source extends Component<ISourceProps, ISourceState>  {
         onSourceClick(id);
     }
 
+    private renderSwipeButtons = (id: string) => ([
+        {
+            component: (
+                <Button style={{...style.swipeStyle, ...style.removeButton}} onPress={() => this.openClosedContent(id)}>
+                    <Icon name="open" />
+                </Button>
+            )
+        },
+        {
+            component: (
+                <Button style={{...style.swipeStyle, ...style.openButton}}  onPress={this.props.onDeleteRSS}>
+                    <Icon name="trash"/>
+                </Button>
+            )
+        }
+    ])
+
     render() {
-        const { onDeleteRSS, title, imageUrl, id } = this.props;
+        const { title, imageUrl, id } = this.props;
         return (
-            <List>
-                <SourceHeader title={title}
-                    imageUrl={imageUrl}
-                    onSourceClick={() => this.openClosedContent(id)}
-                    onDeleteRSS={onDeleteRSS} />
-            </List>
+            <Swipeout right={this.renderSwipeButtons(id)}>
+                <RSS title={title}
+                    imageUrl={imageUrl}/>
+            </Swipeout>
+
         )
     }
 };

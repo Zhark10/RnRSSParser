@@ -8,7 +8,7 @@ interface IDetailedArticleProps {
     article: IArticle;
 }
 
-const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { author, description, published, title, image, id } }) => (
+const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { description, published, title, image, id } }) => (
     <Content padder>
         <Card style={style.card}>
             <CardItem header bordered>
@@ -27,7 +27,7 @@ const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { author, descrip
                     </Text>
                 </Body>
             </CardItem>
-            <CardItem>
+            <CardItem footer bordered>
                 <Left>
                     <Button onPress={() => Linking.openURL(id).catch((e: any) => showMessage("Что-то пошло не так, попробуйте еще раз"))}
                         transparent
