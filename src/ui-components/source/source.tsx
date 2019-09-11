@@ -9,47 +9,38 @@ interface ISourceProps extends RSSResponse {
     onSourceClick: (id: string) => void;
 }
 
-interface ISourceState {
-    isCollapsed: boolean;
-}
+class Source extends Component<ISourceProps>  {
 
-class Source extends Component<ISourceProps, ISourceState>  {
-
-    state: ISourceState = {
-        isCollapsed: true
-    }
-
-    private openClosedContent = (id: string) => {
+    private openSource = (id: string) => {
         const { onSourceClick } = this.props;
-        this.setState(({ isCollapsed }: ISourceState) => ({ isCollapsed: !isCollapsed }))
         onSourceClick(id);
     }
 
-    private renderSwipeButtons = (id: string) => ([
-        {
+    private renderSwipeButtons = (id: string): { [key: string]: any }[] => (
+        [{
             component: (
-                <Button style={{...style.swipeStyle, ...style.removeButton}} onPress={() => this.openClosedContent(id)}>
+                <Button style={{ ...style.swipeStyle, ...style.removeButton }}
+                    onPress={() => this.openSource(id)}>
                     <Icon name="open" />
                 </Button>
             )
         },
         {
             component: (
-                <Button style={{...style.swipeStyle, ...style.openButton}}  onPress={this.props.onDeleteRSS}>
-                    <Icon name="trash"/>
+                <Button style={{ ...style.swipeStyle, ...style.openButton }}
+                    onPress={this.props.onDeleteRSS}>
+                    <Icon name="trash" />
                 </Button>
             )
-        }
-    ])
+        }]
+    )
 
     render() {
         const { title, imageUrl, id } = this.props;
         return (
             <Swipeout right={this.renderSwipeButtons(id)}>
-                <RSS title={title}
-                    imageUrl={imageUrl}/>
+                <RSS title={title} imageUrl={imageUrl} />
             </Swipeout>
-
         )
     }
 };

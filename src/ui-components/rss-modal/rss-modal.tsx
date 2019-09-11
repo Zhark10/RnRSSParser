@@ -19,7 +19,7 @@ class RSSModal extends Component<IRSSModalProps, IRSSModalState> {
     inputField: any = createRef();
 
     state: IRSSModalState = {
-        inputText: "https://news.yandex.ru/sport.rss"
+        inputText: "https://habrahabr.ru/rss/interesting/"
     }
 
     render() {
