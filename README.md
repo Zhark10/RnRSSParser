@@ -3,6 +3,9 @@
 ## About the Project
 It is possible to download news feeds and view news for each of them.
 
+## Home screen
+![home screen]https://sun9-57.userapi.com/c852132/v852132152/1cd842/_9_7Lef1Yas.jpg
+
 ## Run local application
 
 + Install the dependencies:
