@@ -4,7 +4,7 @@
 It is possible to download news feeds and view news for each of them.
 
 ## Home screen
-![home screen]https://sun9-57.userapi.com/c852132/v852132152/1cd842/_9_7Lef1Yas.jpg
+![](https://psv4.userapi.com/c848132/u152216363/docs/d18/be33d355fea1/9_7Lef1Yas.jpg?extra=quSFRStytCNp-fO6GJS8yLo72TijU8eMUZZlMK5TZIsvO6-xvjw0x1t0uFFD966siRm0RPMLhsanYYacplJK2y0No4Zo2Vzhuv4X3HzsUJeT2xtSFuoHXVdhS_BEkkHBJFyBBo9DTard-eCHSbV871Y1jg)
 
 ## Run local application
 
