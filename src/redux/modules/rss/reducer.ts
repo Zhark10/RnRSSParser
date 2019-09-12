@@ -44,7 +44,10 @@ export function rssReducer(state: ISourcesState = initialState, action: Action<a
                 isLoaded: true
             };
         default:
-            return state;
+            return {
+                ...state,
+                isLoaded: true
+            }
     }
 }
 
