@@ -36,10 +36,10 @@ class Source extends Component<ISourceProps>  {
     )
 
     render() {
-        const { title, imageUrl, id } = this.props;
+        const { title, imageUrl, id, onSourceClick } = this.props;
         return (
             <Swipeout right={this.renderSwipeButtons(id)}>
-                <RSS title={title} imageUrl={imageUrl} />
+                <RSS title={title} id={id} imageUrl={imageUrl} onSourceClick={onSourceClick}/>
             </Swipeout>
         )
     }

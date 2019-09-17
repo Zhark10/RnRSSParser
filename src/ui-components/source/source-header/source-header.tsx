@@ -4,10 +4,13 @@ import { Text } from 'react-native';
 import style from './style';
 import { RSSResponse } from '../../../redux/modules/rss/types';
 
-interface IRSSProps extends RSSResponse { }
+interface IRSSProps extends RSSResponse {
+    onSourceClick: (id: string) => void;
+}
 
-const RSS: FC<IRSSProps> = ({ title, imageUrl }) => (
+const RSS: FC<IRSSProps> = ({ title, imageUrl, onSourceClick, id }) => (
     <ListItem
+        onPress={() => onSourceClick(id)}
         noIndent
         style={style.listItem}>
         <Left>

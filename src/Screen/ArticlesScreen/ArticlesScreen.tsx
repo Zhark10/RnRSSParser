@@ -52,8 +52,6 @@ class ArticlesScreen extends Component<IArticlesScreenProps, IArticlesScreenStat
     }
   }
 
-  private goBack = () => this.props.navigation.navigate("Home");
-
   private onRefresh = (rssUrl: string, dispatch: Function) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -69,7 +67,7 @@ class ArticlesScreen extends Component<IArticlesScreenProps, IArticlesScreenStat
     const { sortedArticles } = this.state;
     return (
       <Wrapper
-        goBack={this.goBack}
+        goBack={() => this.props.navigation.goBack()}
         headerTitle={rssTitle}
         homeMenuActions={[ArticlesMenuActions.SORT_BY_DATE, ArticlesMenuActions.REFRESH]}
         menuItemClick={this.menuItemClick}>

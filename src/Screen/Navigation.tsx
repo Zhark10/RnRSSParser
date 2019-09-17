@@ -1,13 +1,18 @@
-import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import HomeScreen from './HomeScreen/HomeScreen';
 import ArticlesScreen from './ArticlesScreen/ArticlesScreen';
-import DetailedArticleScreen from './DetailedArticleScreen/DetailedArticleScreen';
+import { createStackNavigator } from "react-navigation-stack";
+import { DetailedArticleScreen } from './DetailedArticleScreen/DetailedArticleScreen';
 
-const MainNavigator = createSwitchNavigator({
+const stackNavigationConfig: {[key: string]: any} = {
+  headerMode: "none"
+}
+
+const MainNavigator = createStackNavigator({
   Home: { screen: HomeScreen },
   DetailedArticle: { screen: DetailedArticleScreen },
-  Articles: { screen: ArticlesScreen }
-});
+  Articles: { screen: ArticlesScreen },
+}, stackNavigationConfig);
 
 const AppNavigator = createAppContainer(MainNavigator);
 
