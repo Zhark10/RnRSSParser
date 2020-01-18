@@ -4,6 +4,7 @@ import Modal from 'react-native-modal';
 import { Header, Button, Text, Title, Body, Right, Left } from 'native-base';
 import style from './style';
 import { textToUrl } from '../../utils/helpers';
+import { URLS } from '../../Screen/HomeScreen/urls';
 
 interface IRSSModalProps {
     modalVisible: boolean;
@@ -19,7 +20,7 @@ class RSSModal extends Component<IRSSModalProps, IRSSModalState> {
     inputField: any = createRef();
 
     state: IRSSModalState = {
-        inputText: "https://habrahabr.ru/rss/interesting/"
+        inputText: URLS[0]
     }
 
     render() {

@@ -81,6 +81,7 @@ class ArticlesScreen extends Component<IArticlesScreenProps, IArticlesScreenStat
                 <Body>
                   <Text numberOfLines={3}>{article.title}</Text>
                   <Text note numberOfLines={1}>{article.published}</Text>
+                  <Text note numberOfLines={1}>{article.id}</Text>
                 </Body>
                 <Right >
                   <View >
@@ -90,6 +91,7 @@ class ArticlesScreen extends Component<IArticlesScreenProps, IArticlesScreenStat
                     </Button>
                   </View>
                 </Right>
+                <Text>{article.author}</Text>
               </ListItem>
             ) : <Spinner color="blue" />}
           </Content>

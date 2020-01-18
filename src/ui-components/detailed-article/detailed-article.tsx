@@ -10,19 +10,9 @@ interface IDetailedArticleProps {
     params: any
 }
 
-const DetailedArticle: FC<IDetailedArticleProps> = ({ params: { article: { description, published, title, id }, rssUrl } }) => {
+const DetailedArticle: FC<IDetailedArticleProps> = ({ params: { article: { description, published, title, id, links }, rssUrl } }) => {
     const img = getImageFromDescription(description);
-    const url = rssUrl;
-    Alert.alert(url)
-
-    const request = async () => {
-        // await response of fetch call
-        let response = await fetch('https://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=32008777310');
-        // only proceed once promise is resolved
-        let data = await response.json();
-        // only proceed once second promise is resolved
-        Alert.alert(data + '');
-    }
+    const url = links;
 
     return (
         <Content padder>
@@ -46,7 +36,7 @@ const DetailedArticle: FC<IDetailedArticleProps> = ({ params: { article: { descr
                 </CardItem>
                 <CardItem footer bordered>
                     <Left>
-                        <Button onPress={request}
+                        <Button onPress={()=>{}}
                             transparent
                             textStyle={{ color: '#87838B' }}>
                             <Text>Открыть в браузере</Text>

@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { Action } from '../../types/types';
 import { SAVE_SOURCE, REFRESH_SOURCE_ARTICLES, SORT_ARTICLES_BY_DATE } from '../../store/actions';
 import { IArticlesByUrlState, IArticle, Articles } from './types';
@@ -43,19 +44,22 @@ export function articlesReducer(state: IArticlesByUrlState = initialState, actio
 
 const refreshNewArticles = (currentState: Articles, rssUrl: string, rss: RSSResponse) => {
     const newList: Articles = currentState;
-    newList[rssUrl] = rss.items.map((article: IArticle) => ArticleCorrect(article));
+    Alert.alert(Object.keys(rss.items[0]).join(', '))
+    newList[rssUrl] = rss.items.slice(0, 4).map((article: IArticle) => ArticleCorrect(article));
     return newList;
 }
 
-const ArticleCorrect = (article: IArticle) => ({
-    title: article.title ? article.title : "",
-    link: article.link ? article.link : "",
-    description: article.description ? article.description : "",
-    author: article.author ? article.author : "",
-    id: article.id ? article.id : "",
-    published: article.published ? article.published : "",
-    image: article.enclosure ? article.enclosure.getAttribute('url') : null
-});
+const ArticleCorrect = (article: IArticle) => {
+    return {
+        title: article.title ? article.title : "",
+        link: article.link ? article.link : "",
+        description: article.description ? article.description : "",
+        author: article.author ? article.author : "",
+        id: article.id ? article.id : "",
+        published: article.published ? article.published : "",
+        image: article.enclosure ? article.enclosure.getAttribute('url') : null
+    }
+};
 
 const sortArticles = (articles: Articles, rssUrl: string) => {
     articles[rssUrl] = _.sortBy(articles[rssUrl], "published")
