@@ -75,8 +75,6 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
     const { showRSSModal } = this.state;
     const { sources, dispatch, isLoaded } = this.props;
     const { addRSS } = this;
-    console.log('sdfadsfadf')
-debugger;
     const emptyContentText = "Пока загруженных новостных лент нет, но ты можешь добавить ее, нажав на кнопку внизу экрана.";
     return (
       <Wrapper

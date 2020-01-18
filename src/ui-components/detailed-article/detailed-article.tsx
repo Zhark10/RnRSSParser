@@ -7,13 +7,23 @@ import { showMessage, getImageFromDescription } from '../../utils/helpers';
 import * as pls from 'psl'
 
 interface IDetailedArticleProps {
-    article: IArticle;
+    params: any
 }
 
-const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { description, published, title, id } }) => {
+const DetailedArticle: FC<IDetailedArticleProps> = ({ params: { article: { description, published, title, id }, rssUrl } }) => {
     const img = getImageFromDescription(description);
-    const url = id;
-    console.log(url)
+    const url = rssUrl;
+    Alert.alert(url)
+
+    const request = async () => {
+        // await response of fetch call
+        let response = await fetch('https://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=32008777310');
+        // only proceed once promise is resolved
+        let data = await response.json();
+        // only proceed once second promise is resolved
+        Alert.alert(data + '');
+    }
+
     return (
         <Content padder>
             <Card style={style.card}>
@@ -28,7 +38,7 @@ const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { description, pu
                 </CardItem>
                 <CardItem>
                     <Body>
-                    {img && <Image source={{ uri: img }} style={style.imageStyle} />}
+                        {img && <Image source={{ uri: img }} style={style.imageStyle} />}
                         <Text>
                             {description.replace(/<[^>]*>/g, '')}
                         </Text>
@@ -36,7 +46,7 @@ const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { description, pu
                 </CardItem>
                 <CardItem footer bordered>
                     <Left>
-                        <Button onPress={() => Linking.openURL(id).catch((e: any) => showMessage("Что-то пошло не так, попробуйте еще раз"))}
+                        <Button onPress={request}
                             transparent
                             textStyle={{ color: '#87838B' }}>
                             <Text>Открыть в браузере</Text>

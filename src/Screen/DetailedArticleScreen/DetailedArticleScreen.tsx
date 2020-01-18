@@ -7,10 +7,11 @@ interface IDetailedArticleScreenProps {
 }
 
 export const DetailedArticleScreen: FC<IDetailedArticleScreenProps> = ({ navigation }) => {
-  const { params: { article } } = navigation.state;
+  const { params } = navigation.state;
+  
   return (
     <Wrapper headerTitle={"Новость"} goBack={() => navigation.goBack()}>
-      <DetailedArticle article={article} />
+      <DetailedArticle params={params} />
     </Wrapper>
   )
 }
