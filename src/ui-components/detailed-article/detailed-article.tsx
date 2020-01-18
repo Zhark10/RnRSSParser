@@ -2,14 +2,18 @@ import React, { FC } from 'react';
 import { Left, Body, Text, Button, Content, Card, CardItem, Thumbnail } from 'native-base';
 import style from './style';
 import { IArticle } from '../../redux/modules/articles/types';
-import { Linking, Image } from 'react-native';
+import { Linking, Image, Alert } from 'react-native';
 import { showMessage, getImageFromDescription } from '../../utils/helpers';
+import * as pls from 'psl'
+
 interface IDetailedArticleProps {
     article: IArticle;
 }
 
 const DetailedArticle: FC<IDetailedArticleProps> = ({ article: { description, published, title, id } }) => {
     const img = getImageFromDescription(description);
+    const url = id;
+    console.log(url)
     return (
         <Content padder>
             <Card style={style.card}>

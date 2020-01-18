@@ -12,6 +12,7 @@ import Source from '../../ui-components/source/source';
 import { Articles } from '../../redux/modules/articles/types';
 import style from './style';
 import { showMessage } from '../../utils/helpers';
+import { URLS } from './urls';
 
 interface IHomeScreenProps {
   navigation?: any;
@@ -29,6 +30,13 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
   state: IHomeScreenState = {
     showRSSModal: false
   }
+
+  componentDidMount() {
+    const { dispatch, } = this.props;
+    URLS.map((url: string) => {
+      dispatch(saveSource(url, () => showMessage("Ура! Лента добавлена!")))
+    })
+  };
 
   private menuItemClick = (action: HomeMenuActions, index: number) => {
     const { dispatch } = this.props;
@@ -67,6 +75,8 @@ class HomeScreen extends Component<IHomeScreenProps, IHomeScreenState> {
     const { showRSSModal } = this.state;
     const { sources, dispatch, isLoaded } = this.props;
     const { addRSS } = this;
+    console.log('sdfadsfadf')
+debugger;
     const emptyContentText = "Пока загруженных новостных лент нет, но ты можешь добавить ее, нажав на кнопку внизу экрана.";
     return (
       <Wrapper
