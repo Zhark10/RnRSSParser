@@ -44,18 +44,18 @@ export function articlesReducer(state: IArticlesByUrlState = initialState, actio
 
 const refreshNewArticles = (currentState: Articles, rssUrl: string, rss: RSSResponse) => {
     const newList: Articles = currentState;
-    Alert.alert(Object.keys(rss.items[0]).join(', '))
-    newList[rssUrl] = rss.items.slice(0, 4).map((article: IArticle) => ArticleCorrect(article));
+    newList[rssUrl] = rss.items.slice(0, 25).map((article: IArticle) => ArticleCorrect(article));
     return newList;
 }
 
 const ArticleCorrect = (article: IArticle) => {
+    const zakupkiUrl = article.links[0].url ? ('https://zakupki.gov.ru' + article.links[0].url) : ""
     return {
         title: article.title ? article.title : "",
-        link: article.link ? article.link : "",
+        link: article.link ? article.link : zakupkiUrl,
         description: article.description ? article.description : "",
         author: article.author ? article.author : "",
-        id: article.id ? article.id : "",
+        id: article.id ? article.id : zakupkiUrl,
         published: article.published ? article.published : "",
         image: article.enclosure ? article.enclosure.getAttribute('url') : null
     }

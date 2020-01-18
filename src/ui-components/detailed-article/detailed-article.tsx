@@ -36,7 +36,7 @@ const DetailedArticle: FC<IDetailedArticleProps> = ({ params: { article: { descr
                 </CardItem>
                 <CardItem footer bordered>
                     <Left>
-                        <Button onPress={()=>{}}
+                        <Button onPress={() => Linking.openURL(id).catch((e: any) => showMessage("Что-то пошло не так, попробуйте еще раз"))}
                             transparent
                             textStyle={{ color: '#87838B' }}>
                             <Text>Открыть в браузере</Text>
